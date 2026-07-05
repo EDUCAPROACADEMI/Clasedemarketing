@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Educa Pro+</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #0f0c1b, #2b0938, #540d5e);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .quiz-container {
+            background: rgba(20, 15, 35, 0.85);
+            border: 2px solid #bd10e0;
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 650px;
+            box-shadow: 0 0 25px rgba(189, 16, 224, 0.4);
+            text-align: center;
+        }
+        h1 {
+            color: #00f3ff;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: #f1f1f1;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 12px;
+            border-radius: 25px;
+            border: 2px solid #bd10e0;
+            background: #1a1528;
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 20px;
+        }
+        button {
+            background: linear-gradient(90deg, #bd10e0, #00f3ff);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00f3ff;
+        }
+        .timer {
+            font-size: 1.3rem;
+            color: #ff3366;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
+        }
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        .option-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+        }
+        .option-btn:hover {
+            background: rgba(189, 16, 224, 0.3);
+            border-color: #bd10e0;
+        }
+        .hidden {
+            display: none;
+        }
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        .whatsapp-btn:hover {
+            background: #1ebd59;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="welcome-screen">
+        <h1>✨ Bienvenido a Educa Pro+ ✨</h1>
+        <h2>La Nueva Era del Marketing: IA + Comunidad</h2>
+        <p>Por favor, ingresa tu nombre para comenzar el reto de 20 preguntas.</p>
+        <p><small>Tienes 2 minutos por pregunta. Si el tiempo se agota, pasará a la siguiente.</small></p>
+        <input type="text" id="username" placeholder="Tu Nombre y Apellido" autocomplete="off"><br>
+        <button onclick="startQuiz()">Comenzar Quiz</button>
+    </div>
+
+    <div id="quiz-screen" class="hidden">
+        <div id="progress" style="color: #00f3ff; font-weight: bold; margin-bottom: 5px;">Pregunta 1 de 20</div>
+        <div class="timer">Tiempo restante: <span id="time">02:00</span></div>
+        <h3 id="question-text" style="font-size: 1.3rem; margin-bottom: 20px;">Cargando pregunta...</h3>
+        <div class="options-container" id="options-box">
+            </div>
+    </div>
+
+    <div id="result-screen" class="hidden">
+        <h1>🏆 ¡Quiz Finalizado! 🏆</h1>
+        <p id="feedback-score" style="font-size: 1.4rem; margin-top: 20px;"></p>
+        <p>Para registrar tu nota y finalizar el reto de la Clase 2, haz clic en el botón de abajo para enviar tus respuestas al docente:</p>
+        <a id="ws-link" href="#" target="_blank" class="whatsapp-btn">📲 Enviar Resultados por WhatsApp</a>
+    </div>
+</div>
+
+<script>
+    // Banco de 20 preguntas basadas en las imágenes provistas
+    const questions = [
+        { q: "¿Qué es el Marketing Digital hoy en día?", a: ["Solo publicar en redes sociales de forma masiva", "Pagar anuncios costosos en buscadores", "El conjunto de estrategias orientadas a conectar con las personas correctas, en el momento correcto, usando canales digitales", "Enviar correos electrónicos a bases de datos compradas"], c: 2 },
+        { q: "¿En qué consiste la 'Hiper-personalización con IA'?", a: ["En mandar el mismo mensaje a toda la masa de seguidores", "En usar datos e IA para crear experiencias personalizadas orientadas a los dolores específicos de cada cliente", "En diseñar un solo anuncio publicitario para todo el país", "En automatizar respuestas automáticas sin usar datos del usuario"], c: 1 },
+        { q: "Según las diapositivas, ¿cómo se mide el éxito digital actualmente?", a: ["Por tener millones de seguidores aunque no interactúen", "Por la cantidad de publicaciones diarias que se realizan", "En la confianza y la lealtad que generas en tu comunidad", "Por el diseño visual del logotipo"], c: 2 },
+        { q: "Tener miles de seguidores ya no sirve si...", a: ["No tienen cuentas verificadas", "No interactúan", "No compran todos los días", "No comparten memes"], c: 1 },
+        { q: "¿Qué es lo primero que se debe hacer para un 'Análisis de Entorno potencial'?", a: ["Invertir todo el presupuesto en anuncios de Meta", "Entender dónde estamos parados frente al mercado y la competencia", "Contratar inmediatamente a un editor de videos", "Crear una página web desde cero"], c: 1 },
+        { q: "¿Qué herramientas gratuitas se mencionan para descubrir tendencias sin presupuesto?", a: ["ChatGPT Premium y Midjourney", "Google Trends y la biblioteca de anuncios de Meta", "Excel y Canva Pro", "WhatsApp Business y CapCut"], c: 1 },
+        { q: "¿Qué permite descubrir la biblioteca de anuncios de Meta o Google Trends?", a: ["Los datos bancarios de la competencia", "Qué está buscando el público en tiempo real", "Los algoritmos secretos de Instagram", "El diseño de avatares automáticos"], c: 1 },
+        { q: "Para vender con éxito el curso de videos con IA, las diapositivas advierten que no podemos...", a: ["Cobrar muy barato", "Usar redes sociales", "Disparar a ciegas (debemos entender la mente del comprador)", "Usar herramientas gratuitas"], c: 2 },
+        { q: "¿Cuál es el problema principal de definir el mercado solo como 'Público Objetivo' (ej. Hombres y mujeres de 25 a 45 años...)?", a: ["Es un grupo demasiado amplio y no te dice por qué comprarían tu curso", "Es un grupo muy pequeño que no genera ganancias", "No incluye filtros de países", "No utiliza segmentación por Inteligencia Artificial"], c: 0 },
+        { q: "¿Qué herramienta te ayuda a entender la mente, frustraciones y metas específicas de un cliente ideal?", a: ["El Público Objetivo masivo", "El Buyer Persona", "Google Trends", "La biblioteca de anuncios"], c: 1 },
+        { q: "En el ejemplo de la clase, ¿cuál es la frustración de 'Carlos' (el Buyer Persona de 32 años)?", a: ["No sabe usar una computadora de escritorio", "Le da muchísima pena salir ante la cámara, no tiene tiempo para editar y pagar un editor es costoso", "No tiene dinero para comprar un teléfono celular moderno", "No le interesa el marketing digital"], c: 1 },
+        { q: "¿Cuál es la meta de Carlos en el ejercicio práctico?", a: ["Gastar menos presupuesto en publicidad tradicional", "Crear contenido profesional, rápido y constante sin mostrar su rostro", "Aprender a programar páginas web desde cero", "Vender su negocio local y volverse creador de contenido de tiempo completo"], c: 1 },
+        { q: "¿Cuál es la 'Solución' que ofrece Educa Pro+ para el problema de Carlos?", a: ["Un curso de finanzas avanzadas", "Un curso de videos generados con IA donde aprenderá a automatizar avatares, guiones y edición en minutos", "Un servicio de agencia para administrarle las redes sociales", "Un software de edición de videos para computadoras profesionales"], c: 1 },
+        { q: "En los objetivos SMART, ¿qué significa la letra 'S'?", a: ["Seguro (Safe)", "Específico (Specific) - Qué vas a hacer", "Sostenible (Sustainable)", "Seguidores (Followers)"], c: 1 },
+        { q: "En los objetivos SMART, ¿qué significa la letra 'M'?", a: ["Masivo", "Medible - Cuántos (ej. 20 alumnos inscritos)", "Mercado", "Meta"], c: 1 },
+        { q: "En los objetivos SMART, ¿qué significa la letra 'A'?", a: ["Alcanzable - Es realista para tu presupuesto y tiempo", "Anuncio", "Automático", "Algoritmo"], c: 0 },
+        { q: "En los objetivos SMART, ¿qué significa la letra 'R'?", a: ["Redes Sociales", "Relevante - Importante para el negocio (ej. Generar ingresos y testimonios)", "Rápido", "Reto diario"], c: 1 },
+        { q: "En los objetivos SMART, ¿qué significa la letra 'T'?", a: ["Tendencia", "Tiempo - Cuándo (ej. En los próximos 30 días)", "TikTok", "Trabajo"], c: 1 },
+        { q: "¿Cuál es el 'Reto Práctico' asignado para la Clase 2?", a: ["Pagar 100 dólares en anuncios de Meta", "Terminar de rellenar la ficha de tu Buyer Persona y redactar 2 objetivos SMART enfocados en el lanzamiento o comunidad", "Crear un canal de YouTube y subir 10 videos", "Enviar un correo electrónico a educaproacademi@gmail.com con tu currículum"], c: 1 },
+        { q: "¿Cuál es el correo electrónico oficial de contacto que aparece en la presentación de Educa Pro+?", a: ["contacto@educapro.com", "educaproacademi@gmail.com", "educaprosoporte@gmail.com", "ia.educapro@gmail.com"], c: 1 }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let username = "";
+    let timerInterval;
+    let timeLeft = 120; // 2 minutos por pregunta (120 segundos)
+
+    function startQuiz() {
+        const input = document.getElementById('username').value.trim();
+        if (input === "") {
+            alert("Por favor, ingresa tu nombre para poder registrar tus resultados.");
+            return;
+        }
+        username = input;
+        document.getElementById('welcome-screen').classList.add('hidden');
+        document.getElementById('quiz-screen').classList.remove('hidden');
+        showQuestion();
+    }
+
+    function showQuestion() {
+        clearInterval(timerInterval);
+        timeLeft = 120; 
+        updateTimerDisplay();
+
+        if (currentQuestion >= questions.length) {
+            endQuiz();
+            return;
+        }
+
+        document.getElementById('progress').innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+        
+        let qData = questions[currentQuestion];
+        document.getElementById('question-text').innerText = qData.q;
+
+        let optionsBox = document.getElementById('options-box');
+        optionsBox.innerHTML = "";
+
+        qData.a.forEach((option, index) => {
+            let btn = document.createElement('button');
+            btn.className = "option-btn";
+            btn.innerText = option;
+            btn.onclick = () => selectOption(index);
+            optionsBox.appendChild(btn);
+        });
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                nextQuestion(); // Pasa automáticamente si se acaba el tiempo
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        document.getElementById('time').innerText = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    function selectOption(index) {
+        clearInterval(timerInterval);
+        if (index === questions[currentQuestion].c) {
+            score++;
+        }
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        showQuestion();
+    }
+
+    function endQuiz() {
+        document.getElementById('quiz-screen').classList.add('hidden');
+        document.getElementById('result-screen').classList.remove('hidden');
+
+        document.getElementById('feedback-score').innerText = `${username}, tu puntaje final es: ${score} / ${questions.length}`;
+
+        // Configuración del botón de WhatsApp personalizado
+        const phoneNumber = "573244417844"; // Código de país + número provisto
+        const message = `¡Hola! He terminado el Quiz de *Educa Pro+*.\n\n*Nombre:* ${username}\n*Puntaje:* ${score} de 20 correctas.`;
+        const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+        
+        document.getElementById('ws-link').href = whatsappUrl;
+    }
+</script>
+
+</body>
+</html>
