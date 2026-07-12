@@ -3,257 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Mixto: Participio Pasado, Presente Simple y Continuo</title>
+    <title>Quiz de Inglés - 50 Preguntas</title>
     <style>
-        :root {
-            --primary: #0f172a;
-            --primary-light: #2563eb;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --border: #e2e8f0;
-            --success: #059669;
-            --danger: #dc2626;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f6f9;
+            color: #333;
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
         }
-
         .container {
-            max-width: 850px;
+            max-width: 800px;
             margin: 0 auto;
-        }
-
-        .header-card {
-            background: linear-gradient(135deg, #1e293b, #2563eb);
-            color: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .header-card h1 {
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
-        }
-
-        .header-card p {
-            margin: 0;
-            opacity: 0.95;
-            font-size: 1rem;
-        }
-
-        .controls-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 10px;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .timer-box {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #1e40af;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .badge {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 1rem;
-        }
-
-        .topic-badge {
-            display: inline-block;
-            background: #e0e7ff;
-            color: #3730a3;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .btn {
-            background-color: var(--primary-light);
-            color: white;
-            border: none;
-            padding: 10px 20px;
+            background: #ffffff;
+            padding: 30px;
             border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-            font-size: 0.95rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
-        .btn:hover {
-            background-color: #1d4ed8;
+        h1 {
+            color: #1e3a8a;
+            border-bottom: 2px solid #1e3a8a;
+            padding-bottom: 10px;
+            margin-top: 0;
         }
-
-        .btn-success {
-            background-color: var(--success);
+        h2 {
+            color: #1e40af;
+            margin-top: 40px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
         }
-
-        .btn-success:hover {
-            background-color: #047857;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary-light);
-            color: var(--primary-light);
-        }
-
-        .btn-outline:hover {
-            background: #eff6ff;
-        }
-
         .question-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
-
-        .question-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-
-        .options-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 12px;
-            margin-bottom: 15px;
-        }
-
-        .option-btn {
-            background: #f1f5f9;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px 15px;
-            text-align: left;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: var(--text);
-            width: 100%;
-        }
-
-        .option-btn:hover:not(:disabled) {
-            border-color: var(--primary-light);
-            background: #eff6ff;
-        }
-
-        .option-btn.selected {
-            border-color: var(--primary-light);
-            background: #dbeafe;
-            font-weight: bold;
-        }
-
-        .option-btn.correct {
-            background: #d1fae5 !important;
-            border-color: var(--success) !important;
-            color: #065f46;
-            font-weight: bold;
-        }
-
-        .option-btn.incorrect {
-            background: #fee2e2 !important;
-            border-color: var(--danger) !important;
-            color: #991b1b;
-        }
-
-        .explanation-box {
-            display: none;
             background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.95rem;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #2563eb;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+            border-radius: 4px;
         }
-
-        .explanation-box.visible {
-            display: block;
-        }
-
-        .explanation-title {
+        .question-text {
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
-
-        .explanation-title.correct-text { color: var(--success); }
-        .explanation-title.incorrect-text { color: var(--danger); }
-
-        .explanation-list {
-            margin: 5px 0 0 0;
-            padding-left: 20px;
+        .options {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
         }
-
-        .explanation-list li {
-            margin-bottom: 4px;
+        .options li {
+            margin-bottom: 5px;
         }
-
-        #results-summary {
-            display: none;
-            background: white;
-            border-radius: 12px;
-            border: 2px solid var(--primary-light);
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: center;
+        .answer-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #16a34a;
+            padding: 12px 18px;
+            margin-bottom: 10px;
+            border-radius: 4px;
         }
-
-        .score-display {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1e40af;
-            margin: 10px 0;
+        .answer-title {
+            font-weight: bold;
+            color: #15803d;
         }
-
         @media print {
-            .controls-bar, .btn {
-                display: none !important;
-            }
             body {
                 background: white;
                 padding: 0;
             }
-            .question-card {
-                break-inside: avoid;
-                border: 1px solid #ccc;
+            .container {
                 box-shadow: none;
+                padding: 0;
             }
-            .explanation-box {
-                display: block !important;
+            .question-card, .answer-card {
+                break-inside: avoid;
             }
         }
     </style>
@@ -261,144 +83,567 @@
 <body>
 
 <div class="container">
-    <div class="header-card">
-        <h1>Quiz Mixto de Inglés (30 Preguntas)</h1>
-        <p><b>Temas:</b> Participio Pasado (-ed / -d / irregulares) | Presente Simple | Presente Continuo</p>
-        <p><small>⏱️ Tiempo límite: 2 minutos por pregunta | Retroalimentación e historias inmediatas</small></p>
+    <h1>Quiz de Inglés: 50 Preguntas Revueltas</h1>
+    <p><b>Temas evaluados:</b> Pasado Simple (Did / Didn't), Participio Pasado (Regulares e Irregulares), Presente Simple y Presente Continuo.</p>
+
+    <!-- PREGUNTAS -->
+    <h2>Cuestionario</h2>
+
+    <div class="question-card">
+        <div class="question-text">1. _____ you watch the movie last night?</div>
+        <ul class="options">
+            <li>A) Did</li>
+            <li>B) Do</li>
+            <li>C) Does</li>
+            <li>D) Were</li>
+        </ul>
     </div>
 
-    <div class="controls-bar">
-        <div class="timer-box">
-            <span>⏱️ Tiempo Pregunta Actual:</span>
-            <span id="question-timer" class="badge">02:00</span>
-        </div>
-        <div style="display: flex; gap: 10px;">
-            <button class="btn btn-outline" onclick="window.print()">🖨️ Guardar / Imprimir PDF</button>
-            <button class="btn btn-success" onclick="finishQuiz()">📊 Finalizar y Ver Resultado</button>
-        </div>
+    <div class="question-card">
+        <div class="question-text">2. She has already _____ her homework.</div>
+        <ul class="options">
+            <li>A) finish</li>
+            <li>B) finished</li>
+            <li>C) finishing</li>
+            <li>D) finishes</li>
+        </ul>
     </div>
 
-    <div id="results-summary">
-        <h2>🎉 ¡Quiz Finalizado!</h2>
-        <div class="score-display"><span id="user-score">0</span> / 30</div>
-        <p id="score-comment"></p>
-        <button class="btn" onclick="location.reload()">🔄 Reintentar Quiz</button>
+    <div class="question-card">
+        <div class="question-text">3. My brother _____ in a bank.</div>
+        <ul class="options">
+            <li>A) work</li>
+            <li>B) works</li>
+            <li>C) working</li>
+            <li>D) is work</li>
+        </ul>
     </div>
 
-    <div id="questions-container">
-        <!-- Preguntas inyectadas por JS -->
+    <div class="question-card">
+        <div class="question-text">4. Look! It _____ right now.</div>
+        <ul class="options">
+            <li>A) rains</li>
+            <li>B) is raining</li>
+            <li>C) rain</li>
+            <li>D) is rain</li>
+        </ul>
     </div>
+
+    <div class="question-card">
+        <div class="question-text">5. She _____ not come to the party yesterday.</div>
+        <ul class="options">
+            <li>A) did</li>
+            <li>B) does</li>
+            <li>C) do</li>
+            <li>D) was</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">6. They have _____ in London for three years.</div>
+        <ul class="options">
+            <li>A) lived</li>
+            <li>B) live</li>
+            <li>C) living</li>
+            <li>D) lives</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">7. They _____ like spicy food.</div>
+        <ul class="options">
+            <li>A) doesn't</li>
+            <li>B) don't</li>
+            <li>C) aren't</li>
+            <li>D) not</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">8. They _____ TV at the moment.</div>
+        <ul class="options">
+            <li>A) watch</li>
+            <li>B) are watching</li>
+            <li>C) is watching</li>
+            <li>D) watches</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">9. Where _____ they go for their summer vacation?</div>
+        <ul class="options">
+            <li>A) do</li>
+            <li>B) did</li>
+            <li>C) are</li>
+            <li>D) have</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">10. Have you ever _____ a sports car?</div>
+        <ul class="options">
+            <li>A) drive</li>
+            <li>B) drove</li>
+            <li>C) driven</li>
+            <li>D) driving</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">11. _____ she speak French fluently?</div>
+        <ul class="options">
+            <li>A) Do</li>
+            <li>B) Is</li>
+            <li>C) Does</li>
+            <li>D) Are</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">12. Listen! Someone _____ the piano.</div>
+        <ul class="options">
+            <li>A) plays</li>
+            <li>B) is playing</li>
+            <li>C) play</li>
+            <li>D) are playing</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">13. I didn't _____ my keys in the office.</div>
+        <ul class="options">
+            <li>A) lost</li>
+            <li>B) lose</li>
+            <li>C) losing</li>
+            <li>D) loses</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">14. He has _____ all the emails this morning.</div>
+        <ul class="options">
+            <li>A) wrote</li>
+            <li>B) written</li>
+            <li>C) write</li>
+            <li>D) writing</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">15. Water _____ at 0 degrees Celsius.</div>
+        <ul class="options">
+            <li>A) freezes</li>
+            <li>B) freeze</li>
+            <li>C) freezing</li>
+            <li>D) is freeze</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">16. What _____ you doing right now?</div>
+        <ul class="options">
+            <li>A) do</li>
+            <li>B) are</li>
+            <li>C) is</li>
+            <li>D) does</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">17. Why did you _____ your phone number?</div>
+        <ul class="options">
+            <li>A) changed</li>
+            <li>B) change</li>
+            <li>C) changing</li>
+            <li>D) changes</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">18. The door was _____ by the security guard.</div>
+        <ul class="options">
+            <li>A) close</li>
+            <li>B) closing</li>
+            <li>C) closed</li>
+            <li>D) closes</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">19. I usually _____ coffee in the morning.</div>
+        <ul class="options">
+            <li>A) drinks</li>
+            <li>B) drink</li>
+            <li>C) drinking</li>
+            <li>D) am drink</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">20. I _____ for my English test today.</div>
+        <ul class="options">
+            <li>A) am studying</li>
+            <li>B) study</li>
+            <li>C) is studying</li>
+            <li>D) studies</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">21. They didn't _____ the soccer match.</div>
+        <ul class="options">
+            <li>A) win</li>
+            <li>B) won</li>
+            <li>C) winning</li>
+            <li>D) wins</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">22. I have never _____ to Japan.</div>
+        <ul class="options">
+            <li>A) be</li>
+            <li>B) been</li>
+            <li>C) was</li>
+            <li>D) being</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">23. The train _____ at 8:00 AM every day.</div>
+        <ul class="options">
+            <li>A) leave</li>
+            <li>B) leaves</li>
+            <li>C) leaving</li>
+            <li>D) is leave</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">24. She _____ sleeping; she is reading a book.</div>
+        <ul class="options">
+            <li>A) isn't</li>
+            <li>B) doesn't</li>
+            <li>C) don't</li>
+            <li>D) aren't</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">25. _____ he finish his project on time?</div>
+        <ul class="options">
+            <li>A) Does</li>
+            <li>B) Did</li>
+            <li>C) Is</li>
+            <li>D) Has</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">26. We have _____ all our luggage.</div>
+        <ul class="options">
+            <li>A) packed</li>
+            <li>B) pack</li>
+            <li>C) packing</li>
+            <li>D) packs</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">27. We _____ go to the beach in winter.</div>
+        <ul class="options">
+            <li>A) doesn't</li>
+            <li>B) don't</li>
+            <li>C) aren't</li>
+            <li>D) not</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">28. Why _____ they running so fast?</div>
+        <ul class="options">
+            <li>A) do</li>
+            <li>B) is</li>
+            <li>C) are</li>
+            <li>D) does</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">29. We didn't _____ breakfast this morning.</div>
+        <ul class="options">
+            <li>A) ate</li>
+            <li>B) eat</li>
+            <li>C) eaten</li>
+            <li>D) eating</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">30. Has she _____ her keys again?</div>
+        <ul class="options">
+            <li>A) lose</li>
+            <li>B) lost</li>
+            <li>C) losing</li>
+            <li>D) loosed</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">31. How often _____ you go to the gym?</div>
+        <ul class="options">
+            <li>A) do</li>
+            <li>B) does</li>
+            <li>C) are</li>
+            <li>D) is</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">32. We _____ dinner together tonight.</div>
+        <ul class="options">
+            <li>A) are having</li>
+            <li>B) have</li>
+            <li>C) has</li>
+            <li>D) is having</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">33. What time did the train _____?</div>
+        <ul class="options">
+            <li>A) arrived</li>
+            <li>B) arrive</li>
+            <li>C) arrives</li>
+            <li>D) arriving</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">34. The cake was _____ by my grandmother.</div>
+        <ul class="options">
+            <li>A) make</li>
+            <li>B) maked</li>
+            <li>C) made</li>
+            <li>D) making</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">35. She _____ hard for her exams.</div>
+        <ul class="options">
+            <li>A) study</li>
+            <li>B) studys</li>
+            <li>C) studies</li>
+            <li>D) is study</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">36. The baby _____ in her crib right now.</div>
+        <ul class="options">
+            <li>A) sleeps</li>
+            <li>B) is sleeping</li>
+            <li>C) sleep</li>
+            <li>D) are sleeping</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">37. He didn't _____ any answer to my letter.</div>
+        <ul class="options">
+            <li>A) sent</li>
+            <li>B) send</li>
+            <li>C) sending</li>
+            <li>D) sends</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">38. The room has been _____ thoroughly.</div>
+        <ul class="options">
+            <li>A) cleaned</li>
+            <li>B) clean</li>
+            <li>C) cleaning</li>
+            <li>D) cleans</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">39. My parents _____ in a big house.</div>
+        <ul class="options">
+            <li>A) live</li>
+            <li>B) lives</li>
+            <li>C) living</li>
+            <li>D) is live</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">40. He _____ wearing a coat today because it's hot.</div>
+        <ul class="options">
+            <li>A) isn't</li>
+            <li>B) doesn't</li>
+            <li>C) don't</li>
+            <li>D) aren't</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">41. _____ you call me earlier?</div>
+        <ul class="options">
+            <li>A) Did</li>
+            <li>B) Do</li>
+            <li>C) Are</li>
+            <li>D) Have</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">42. The song was _____ by a famous band.</div>
+        <ul class="options">
+            <li>A) sang</li>
+            <li>B) sung</li>
+            <li>C) sing</li>
+            <li>D) singing</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">43. Cats _____ milk.</div>
+        <ul class="options">
+            <li>A) likes</li>
+            <li>B) like</li>
+            <li>C) is liking</li>
+            <li>D) liking</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">44. Shh! The teacher _____ to the class.</div>
+        <ul class="options">
+            <li>A) talks</li>
+            <li>B) is talking</li>
+            <li>C) talk</li>
+            <li>D) are talking</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">45. The students didn't _____ the teacher's instructions.</div>
+        <ul class="options">
+            <li>A) understood</li>
+            <li>B) understand</li>
+            <li>C) understanding</li>
+            <li>D) understands</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">46. All the windows were _____ during the storm.</div>
+        <ul class="options">
+            <li>A) broke</li>
+            <li>B) broken</li>
+            <li>C) break</li>
+            <li>D) breaking</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">47. He never _____ his room on weekends.</div>
+        <ul class="options">
+            <li>A) clean</li>
+            <li>B) cleans</li>
+            <li>C) cleaning</li>
+            <li>D) is clean</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">48. How much money did you _____ on that jacket?</div>
+        <ul class="options">
+            <li>A) spent</li>
+            <li>B) spend</li>
+            <li>C) spending</li>
+            <li>D) spends</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">49. I didn't _____ that you were coming today.</div>
+        <ul class="options">
+            <li>A) knew</li>
+            <li>B) know</li>
+            <li>C) known</li>
+            <li>D) knowing</li>
+        </ul>
+    </div>
+
+    <div class="question-card">
+        <div class="question-text">50. _____ it rain heavily last Sunday?</div>
+        <ul class="options">
+            <li>A) Does</li>
+            <li>B) Did</li>
+            <li>C) Is</li>
+            <li>D) Was</li>
+        </ul>
+    </div>
+
+    <!-- RESPUESTAS -->
+    <h2>Clave de Respuestas</h2>
+
+    <div class="answer-card"><span class="answer-title">1. A) Did / Did</span> — Auxiliar de pasado simple para preguntas / Past simple question auxiliary.</div>
+    <div class="answer-card"><span class="answer-title">2. B) finished / finished</span> — Participio pasado del verbo regular finish (-ed) / Past participle of regular verb.</div>
+    <div class="answer-card"><span class="answer-title">3. B) works / works</span> — Presente simple para 3ª persona (He) / Present simple 3rd person singular.</div>
+    <div class="answer-card"><span class="answer-title">4. B) is raining / is raining</span> — Acciones que suceden en el momento (right now) / Action in progress.</div>
+    <div class="answer-card"><span class="answer-title">5. A) did / did</span> — Auxiliar para negar en pasado (did not / didn't) / Past simple negative auxiliary.</div>
+    <div class="answer-card"><span class="answer-title">6. A) lived / lived</span> — Participio pasado regular (lived) / Past participle of regular verb ending in -e.</div>
+    <div class="answer-card"><span class="answer-title">7. B) don't / don't</span> — Negación en presente simple para They / Present simple negative for They.</div>
+    <div class="answer-card"><span class="answer-title">8. B) are watching / are watching</span> — Presente continuo para They / Present continuous for They.</div>
+    <div class="answer-card"><span class="answer-title">9. B) did / did</span> — Auxiliar interrogativo para pasado simple / Past simple question auxiliary.</div>
+    <div class="answer-card"><span class="answer-title">10. C) driven / driven</span> — Participio pasado irregular del verbo drive / Irregular past participle of drive.</div>
+    <div class="answer-card"><span class="answer-title">11. C) Does / Does</span> — Auxiliar interrogativo en presente simple para She / Present simple question auxiliary for She.</div>
+    <div class="answer-card"><span class="answer-title">12. B) is playing / is playing</span> — Acción sucediendo en este instante / Action happening now.</div>
+    <div class="answer-card"><span class="answer-title">13. B) lose / lose</span> — Tras el auxiliar didn't, el verbo vuelve a su forma base / Base form verb after didn't.</div>
+    <div class="answer-card"><span class="answer-title">14. B) written / written</span> — Participio pasado irregular de write / Irregular past participle of write.</div>
+    <div class="answer-card"><span class="answer-title">15. A) freezes / freezes</span> — Verdades universales en presente simple (3ª persona Water / It) / Universal facts in present simple.</div>
+    <div class="answer-card"><span class="answer-title">16. B) are / are</span> — Verbo To Be necesario para el sujeto you en presente continuo / To Be for you in continuous form.</div>
+    <div class="answer-card"><span class="answer-title">17. B) change / change</span> — Forma base tras el auxiliar did / Base form verb after did.</div>
+    <div class="answer-card"><span class="answer-title">18. C) closed / closed</span> — Participio pasado del verbo regular close / Past participle of regular verb.</div>
+    <div class="answer-card"><span class="answer-title">19. B) drink / drink</span> — Rutinas personales en presente simple con I / Routine in present simple with I.</div>
+    <div class="answer-card"><span class="answer-title">20. A) am studying / am studying</span> — Presente continuo con I / Present continuous for I.</div>
+    <div class="answer-card"><span class="answer-title">21. A) win / win</span> — Forma base del verbo obligatoria tras didn't / Base form after didn't.</div>
+    <div class="answer-card"><span class="answer-title">22. B) been / been</span> — Participio pasado irregular del verbo To Be / Irregular past participle of To Be.</div>
+    <div class="answer-card"><span class="answer-title">23. B) leaves / leaves</span> — Horarios/rutinas en presente simple (The train / It) / Timetable/routine in present simple.</div>
+    <div class="answer-card"><span class="answer-title">24. A) isn't / isn't</span> — Negación del verbo To Be en presente continuo para She / Negative present continuous for She.</div>
+    <div class="answer-card"><span class="answer-title">25. B) Did / Did</span> — Pregunta sobre acción terminada en el pasado / Past simple question auxiliary.</div>
+    <div class="answer-card"><span class="answer-title">26. A) packed / packed</span> — Participio pasado del verbo regular pack (-ed) / Past participle of regular verb.</div>
+    <div class="answer-card"><span class="answer-title">27. B) don't / don't</span> — Negación en presente simple para We / Present simple negative for We.</div>
+    <div class="answer-card"><span class="answer-title">28. C) are / are</span> — Auxiliar To Be para they en presente continuo / Present continuous auxiliary for they.</div>
+    <div class="answer-card"><span class="answer-title">29. B) eat / eat</span> — Forma base tras el auxiliar didn't / Base form after didn't.</div>
+    <div class="answer-card"><span class="answer-title">30. B) lost / lost</span> — Participio pasado irregular de lose / Irregular past participle of lose.</div>
+    <div class="answer-card"><span class="answer-title">31. A) do / do</span> — Pregunta de frecuencia en presente simple con you / Present simple question auxiliary for you.</div>
+    <div class="answer-card"><span class="answer-title">32. A) are having / are having</span> — Plan futuro cercano / Present continuous for near future plans.</div>
+    <div class="answer-card"><span class="answer-title">33. B) arrive / arrive</span> — Forma base requerida tras el auxiliar did / Base form verb after did.</div>
+    <div class="answer-card"><span class="answer-title">34. C) made / made</span> — Participio pasado irregular del verbo make / Irregular past participle of make.</div>
+    <div class="answer-card"><span class="answer-title">35. C) studies / studies</span> — Regla ortográfica de presente simple (consonante + y -> -ies) / Present simple spelling rule.</div>
+    <div class="answer-card"><span class="answer-title">36. B) is sleeping / is sleeping</span> — Acción sucediendo justo ahora (right now) / Action in progress.</div>
+    <div class="answer-card"><span class="answer-title">37. B) send / send</span> — Forma base del verbo tras la negación didn't / Base form after didn't.</div>
+    <div class="answer-card"><span class="answer-title">38. A) cleaned / cleaned</span> — Participio pasado regular del verbo clean (-ed) / Past participle of regular verb.</div>
+    <div class="answer-card"><span class="answer-title">39. A) live / live</span> — Presente simple para el sujeto plural My parents (They) / Present simple plural.</div>
+    <div class="answer-card"><span class="answer-title">40. A) isn't / isn't</span> — Negación en presente continuo para He / Negative present continuous for He.</div>
+    <div class="answer-card"><span class="answer-title">41. A) Did / Did</span> — Auxiliar de pasado simple para preguntar "¿Llamaste...?" / Past simple question auxiliary.</div>
+    <div class="answer-card"><span class="answer-title">42. B) sung / sung</span> — Participio pasado irregular del verbo sing / Irregular past participle of sing.</div>
+    <div class="answer-card"><span class="answer-title">43. B) like / like</span> — Verbo en forma base para el sujeto plural Cats / Present simple for plural subject.</div>
+    <div class="answer-card"><span class="answer-title">44. B) is talking / is talking</span> — Acción que está ocurriendo en este momento / Action happening right now.</div>
+    <div class="answer-card"><span class="answer-title">45. B) understand / understand</span> — Forma base tras el auxiliar didn't / Base form after didn't.</div>
+    <div class="answer-card"><span class="answer-title">46. B) broken / broken</span> — Participio pasado irregular de break / Irregular past participle of break.</div>
+    <div class="answer-card"><span class="answer-title">47. B) cleans / cleans</span> — Presente simple con adverbio de frecuencia (He cleans) / Present simple 3rd person singular.</div>
+    <div class="answer-card"><span class="answer-title">48. B) spend / spend</span> — Forma base del verbo tras did / Base form after did.</div>
+    <div class="answer-card"><span class="answer-title">49. B) know / know</span> — Forma base del verbo tras didn't / Base form after didn't.</div>
+    <div class="answer-card"><span class="answer-title">50. B) Did / Did</span> — Auxiliar de pasado simple para el tiempo atmosférico pasado / Past simple question auxiliary.</div>
+
 </div>
-
-<script>
-const quizData = [{'topic': 'Present Simple', 'question': '20. My parents _____ in a big house.', 'options': ['A) live', 'B) lives', 'C) living', 'D) is live'], 'correct': 0, 'explanations': ["✓ A) live: 'My parents' (They) usa el verbo en su forma base.", '✗ B) lives: Es solo para singular (He/She/It).', '✗ C) living: Forma gerundia.', '✗ D) is live: Error de concordancia y estructura.'], 'display_question': '1. My parents _____ in a big house.'}, {'topic': 'Present Simple', 'question': '15. I usually _____ coffee in the morning.', 'options': ['A) drinks', 'B) drink', 'C) drinking', 'D) am drink'], 'correct': 1, 'explanations': ['✗ A) drinks: Solo para He/She/It.', "✓ B) drink: Con el sujeto 'I' el verbo permanece en su forma base.", '✗ C) drinking: Gerundio.', '✗ D) am drink: Mezcla agramatical.'], 'display_question': '2. I usually _____ coffee in the morning.'}, {'topic': 'Present Simple', 'question': '11. My brother _____ in a bank.', 'options': ['A) work', 'B) works', 'C) working', 'D) is work'], 'correct': 1, 'explanations': ["✗ A) work: Falta la '-s' para la 3ª persona.", "✓ B) works: Con 'My brother' (He) añadimos '-s' al verbo en presente simple.", '✗ C) working: Requiere verbo auxiliar To Be.', '✗ D) is work: Mezcla agramatical.'], 'display_question': '3. My brother _____ in a bank.'}, {'topic': 'Present Continuous', 'question': '27. Why _____ they running so fast?', 'options': ['A) do', 'B) is', 'C) are', 'D) does'], 'correct': 2, 'explanations': ['✗ A) do: No se usa con gerundios (-ing).', "✗ B) is: Incompatible con plural 'they'.", "✓ C) are: Auxiliar To Be correcto para 'they' en pregunta de presente continuo.", '✗ D) does: Auxiliar de presente simple.'], 'display_question': '4. Why _____ they running so fast?'}, {'topic': 'Present Continuous', 'question': '23. Listen! Someone _____ the piano.', 'options': ['A) plays', 'B) is playing', 'C) play', 'D) are playing'], 'correct': 1, 'explanations': ['✗ A) plays: Presente simple.', '✓ B) is playing: Presente continuo para una acción ocurriendo en el instante.', '✗ C) play: Forma base.', "✗ D) are playing: 'Someone' es singular, requiere 'is'."], 'display_question': '5. Listen! Someone _____ the piano.'}, {'topic': 'Past Participle', 'question': '7. We have _____ all our luggage.', 'options': ['A) packed', 'B) pack', 'C) packing', 'D) packs'], 'correct': 0, 'explanations': ["✓ A) packed: Participio pasado regular (se añade '-ed' a 'pack').", '✗ B) pack: Forma base.', '✗ C) packing: Gerundio.', '✗ D) packs: Presente simple.'], 'display_question': '6. We have _____ all our luggage.'}, {'topic': 'Past Participle', 'question': '6. I have never _____ to Japan.', 'options': ['A) be', 'B) been', 'C) was', 'D) being'], 'correct': 1, 'explanations': ['✗ A) be: Forma base.', "✓ B) been: Participio pasado irregular del verbo 'To Be'.", '✗ C) was: Pasado simple singular.', '✗ D) being: Gerundio.'], 'display_question': '7. I have never _____ to Japan.'}, {'topic': 'Present Simple', 'question': '13. _____ she speak French fluently?', 'options': ['A) Do', 'B) Is', 'C) Does', 'D) Are'], 'correct': 2, 'explanations': ['✗ A) Do: Se usa para I, You, We, They.', "✗ B) Is: Exigiría 'speaking'.", '✓ C) Does: Auxiliar interrogativo correcto para 3ª persona (She).', '✗ D) Are: Auxiliar de plural To Be.'], 'display_question': '8. _____ she speak French fluently?'}, {'topic': 'Present Simple', 'question': '12. They _____ like spicy food.', 'options': ["A) doesn't", "B) don't", "C) aren't", 'D) not'], 'correct': 1, 'explanations': ["✗ A) doesn't: Se usa solo con He, She, It.", "✓ B) don't: Auxiliar de negación correcto para 'They' en presente simple.", "✗ C) aren't: Se usaría con verbo en gerundio.", "✗ D) not: Requiere el auxiliar 'do'."], 'display_question': '9. They _____ like spicy food.'}, {'topic': 'Present Simple', 'question': '16. The train _____ at 8:00 AM every day.', 'options': ['A) leave', 'B) leaves', 'C) leaving', 'D) is leave'], 'correct': 1, 'explanations': ["✗ A) leave: Sin '-s' para 'The train' (It).", "✓ B) leaves: Se añade '-s' al sujeto singular de 3ª persona.", '✗ C) leaving: Gerundio.', '✗ D) is leave: Construcción incorrecta.'], 'display_question': '10. The train _____ at 8:00 AM every day.'}, {'topic': 'Past Participle', 'question': '10. The room has been _____ thoroughly.', 'options': ['A) cleaned', 'B) clean', 'C) cleaning', 'D) cleans'], 'correct': 0, 'explanations': ["✓ A) cleaned: Participio pasado regular (se añade '-ed').", '✗ B) clean: Forma base / adjetivo.', '✗ C) cleaning: Gerundio.', '✗ D) cleans: Presente simple.'], 'display_question': '11. The room has been _____ thoroughly.'}, {'topic': 'Present Continuous', 'question': '26. She _____ sleeping; she is reading a book.', 'options': ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], 'correct': 0, 'explanations': ["✓ A) isn't: Auxiliar negativo de To Be para 'She' antes de 'sleeping'.", "✗ B) doesn't: Auxiliar de presente simple, no va con '-ing'.", "✗ C) don't: Para presente simple plural.", "✗ D) aren't: No concuerda con 'She'."], 'display_question': '12. She _____ sleeping; she is reading a book.'}, {'topic': 'Present Continuous', 'question': "30. He _____ wearing a coat today because it's hot.", 'options': ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], 'correct': 0, 'explanations': ["✓ A) isn't: Negación del presente continuo [He + isn't + wearing].", "✗ B) doesn't: Auxiliar de presente simple (no va con '-ing').", "✗ C) don't: Incompatible con 'He'.", "✗ D) aren't: Incompatible con 'He'."], 'display_question': "13. He _____ wearing a coat today because it's hot."}, {'topic': 'Present Continuous', 'question': '22. They _____ TV at the moment.', 'options': ['A) watch', 'B) are watching', 'C) is watching', 'D) watches'], 'correct': 1, 'explanations': ['✗ A) watch: Presente simple.', "✓ B) are watching: Presente continuo con auxiliar 'are' para 'They'.", "✗ C) is watching: 'Is' no concuerda con el plural 'They'.", '✗ D) watches: Presente simple 3ª persona.'], 'display_question': '14. They _____ TV at the moment.'}, {'topic': 'Present Simple', 'question': '17. We _____ go to the beach in winter.', 'options': ["A) doesn't", "B) don't", "C) aren't", 'D) not'], 'correct': 1, 'explanations': ["✗ A) doesn't: Solo para 3ª persona singular.", "✓ B) don't: Negación correcta en presente simple para 'We'.", "✗ C) aren't: Exigiría 'going'.", "✗ D) not: Falta el auxiliar 'do'."], 'display_question': '15. We _____ go to the beach in winter.'}, {'topic': 'Present Continuous', 'question': '28. We _____ dinner together tonight.', 'options': ['A) are having', 'B) have', 'C) has', 'D) is having'], 'correct': 0, 'explanations': ['✓ A) are having: Presente continuo para planes futuros cercanos / acción continua.', '✗ B) have: Presente simple.', '✗ C) has: Presente simple 3ª persona.', "✗ D) is having: 'Is' no concuerda con 'We'."], 'display_question': '16. We _____ dinner together tonight.'}, {'topic': 'Past Participle', 'question': '2. They have _____ in London for three years.', 'options': ['A) lived', 'B) live', 'C) living', 'D) lives'], 'correct': 0, 'explanations': ["✓ A) lived: Participio pasado del verbo terminado en '-e' (solo se le añade '-d').", '✗ B) live: Forma base.', '✗ C) living: Gerundio.', '✗ D) lives: Presente simple 3ª persona.'], 'display_question': '17. They have _____ in London for three years.'}, {'topic': 'Present Simple', 'question': '14. Water _____ at 0 degrees Celsius.', 'options': ['A) freezes', 'B) freeze', 'C) freezing', 'D) is freeze'], 'correct': 0, 'explanations': ["✓ A) freezes: 'Water' (It) añade '-es' para verdades universales.", '✗ B) freeze: Le falta la conjugación para 3ª persona.', '✗ C) freezing: Gerundio.', '✗ D) is freeze: Estructura incorrecta.'], 'display_question': '18. Water _____ at 0 degrees Celsius.'}, {'topic': 'Present Simple', 'question': '19. She _____ hard for her exams.', 'options': ['A) study', 'B) studys', 'C) studies', 'D) is study'], 'correct': 2, 'explanations': ['✗ A) study: Forma sin conjugar.', "✗ B) studys: Error ortográfico; consonante + 'y' pasa a '-ies'.", "✓ C) studies: Regla ortográfica correcta para 'She' en presente simple.", '✗ D) is study: Estructura agramatical.'], 'display_question': '19. She _____ hard for her exams.'}, {'topic': 'Past Participle', 'question': '3. Have you ever _____ a sports car?', 'options': ['A) drive', 'B) drove', 'C) driven', 'D) driving'], 'correct': 2, 'explanations': ['✗ A) drive: Forma base en presente.', '✗ B) drove: Pasado simple.', "✓ C) driven: Participio pasado irregular del verbo 'drive'.", '✗ D) driving: Gerundio.'], 'display_question': '20. Have you ever _____ a sports car?'}, {'topic': 'Present Simple', 'question': '18. How often _____ you go to the gym?', 'options': ['A) do', 'B) does', 'C) are', 'D) is'], 'correct': 0, 'explanations': ["✓ A) do: Auxiliar interrogativo correcto para 'you' en presente simple.", '✗ B) does: Solo para He, She, It.', "✗ C) are: Exigiría 'going'.", "✗ D) is: Incompatible con 'you'."], 'display_question': '21. How often _____ you go to the gym?'}, {'topic': 'Present Continuous', 'question': '29. The baby _____ in her crib right now.', 'options': ['A) sleeps', 'B) is sleeping', 'C) sleep', 'D) are sleeping'], 'correct': 1, 'explanations': ['✗ A) sleeps: Presente simple (rutinas).', "✓ B) is sleeping: 'The baby' (singular) + 'is' + verbo-ing para el momento actual.", '✗ C) sleep: Forma base.', "✗ D) are sleeping: 'Are' no concuerda con sujeto singular."], 'display_question': '22. The baby _____ in her crib right now.'}, {'topic': 'Past Participle', 'question': '5. The door was _____ by the security guard.', 'options': ['A) close', 'B) closing', 'C) closed', 'D) closes'], 'correct': 2, 'explanations': ['✗ A) close: Forma base.', '✗ B) closing: Gerundio.', "✓ C) closed: Participio pasado regular del verbo 'close' (terminado en '-e', se añade '-d').", '✗ D) closes: Presente simple 3ª persona.'], 'display_question': '23. The door was _____ by the security guard.'}, {'topic': 'Present Continuous', 'question': '25. I _____ for my English test today.', 'options': ['A) am studying', 'B) study', 'C) is studying', 'D) studies'], 'correct': 0, 'explanations': ['✓ A) am studying: Presente continuo [I + am + verbo-ing].', '✗ B) study: Presente simple.', "✗ C) is studying: 'Is' no concuerda con 'I'.", '✗ D) studies: Solo para 3ª persona singular.'], 'display_question': '24. I _____ for my English test today.'}, {'topic': 'Past Participle', 'question': '8. Has she _____ her keys again?', 'options': ['A) lose', 'B) lost', 'C) losing', 'D) loosed'], 'correct': 1, 'explanations': ['✗ A) lose: Forma base.', "✓ B) lost: Participio pasado irregular de 'lose'.", '✗ C) losing: Gerundio.', '✗ D) loosed: Forma inexistente para este contexto.'], 'display_question': '25. Has she _____ her keys again?'}, {'topic': 'Past Participle', 'question': '9. The cake was _____ by my grandmother.', 'options': ['A) make', 'B) maked', 'C) made', 'D) making'], 'correct': 2, 'explanations': ['✗ A) make: Forma base.', "✗ B) maked: Forma incorrecta; 'make' es irregular.", "✓ C) made: Participio pasado irregular del verbo 'make'.", '✗ D) making: Gerundio.'], 'display_question': '26. The cake was _____ by my grandmother.'}, {'topic': 'Present Continuous', 'question': '24. What _____ you doing right now?', 'options': ['A) do', 'B) are', 'C) is', 'D) does'], 'correct': 1, 'explanations': ["✗ A) do: Se usaría si el verbo fuera 'do' en presente simple, no con 'doing'.", "✓ B) are: Auxiliar del verbo To Be necesario para 'you' en presente continuo.", "✗ C) is: Incompatible con 'you'.", '✗ D) does: Auxiliar de presente simple.'], 'display_question': '27. What _____ you doing right now?'}, {'topic': 'Past Participle', 'question': '1. She has already _____ her homework.', 'options': ['A) finish', 'B) finished', 'C) finishing', 'D) finishes'], 'correct': 1, 'explanations': ['✗ A) finish: Forma base del verbo.', "✓ B) finished: Participio pasado regular (se añade '-ed' a 'finish').", '✗ C) finishing: Participio presente / gerundio.', '✗ D) finishes: Presente simple en 3ª persona.'], 'display_question': '28. She has already _____ her homework.'}, {'topic': 'Past Participle', 'question': '4. He has _____ all the emails this morning.', 'options': ['A) wrote', 'B) written', 'C) write', 'D) writing'], 'correct': 1, 'explanations': ['✗ A) wrote: Pasado simple.', "✓ B) written: Participio pasado irregular de 'write'.", '✗ C) write: Forma base.', '✗ D) writing: Gerundio.'], 'display_question': '29. He has _____ all the emails this morning.'}, {'topic': 'Present Continuous', 'question': '21. Look! It _____ right now.', 'options': ['A) rains', 'B) is raining', 'C) rain', 'D) is rain'], 'correct': 1, 'explanations': ['✗ A) rains: Presente simple (hábitos/hechos, no acción que sucede ahora).', '✓ B) is raining: Presente continuo [To Be (is) + verbo-ing] para acciones del momento.', '✗ C) rain: Forma base.', "✗ D) is rain: Falta la terminación '-ing'."], 'display_question': '30. Look! It _____ right now.'}];
-
-let userAnswers = {};
-let timeLeft = 120;
-let timerInterval;
-
-function startTimer() {
-    clearInterval(timerInterval);
-    timeLeft = 120;
-    updateTimerDisplay();
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-        }
-    }, 1000);
-}
-
-function updateTimerDisplay() {
-    const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-    const secs = (timeLeft % 60).toString().padStart(2, '0');
-    document.getElementById('question-timer').textContent = `${mins}:${secs}`;
-}
-
-function renderQuiz() {
-    const container = document.getElementById('questions-container');
-    container.innerHTML = quizData.map((q, idx) => `
-        <div class="question-card" id="q-card-${idx}">
-            <span class="topic-badge">${q.topic}</span>
-            <div class="question-title">${q.display_question}</div>
-            <div class="options-container">
-                ${q.options.map((opt, optIdx) => `
-                    <button class="option-btn" id="opt-${idx}-${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
-                        ${opt}
-                    </button>
-                `).join('')}
-            </div>
-            <div class="explanation-box" id="exp-${idx}">
-                <div class="explanation-title" id="exp-title-${idx}"></div>
-                <ul class="explanation-list">
-                    ${q.explanations.map(exp => `<li>${exp}</li>`).join('')}
-                </ul>
-            </div>
-        </div>
-    `).join('');
-    startTimer();
-}
-
-function selectOption(qIdx, optIdx) {
-    userAnswers[qIdx] = optIdx;
-    
-    for(let i = 0; i < 4; i++) {
-        const btn = document.getElementById(`opt-${qIdx}-${i}`);
-        btn.classList.remove('selected', 'correct', 'incorrect');
-    }
-
-    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
-    selectedBtn.classList.add('selected');
-
-    const q = quizData[qIdx];
-    const expBox = document.getElementById(`exp-${qIdx}`);
-    const expTitle = document.getElementById(`exp-title-${qIdx}`);
-    
-    expBox.classList.add('visible');
-
-    if (optIdx === q.correct) {
-        selectedBtn.classList.add('correct');
-        expTitle.className = "explanation-title correct-text";
-        expTitle.innerHTML = "✨ ¡Respuesta Correcta!";
-    } else {
-        selectedBtn.classList.add('incorrect');
-        document.getElementById(`opt-${qIdx}-${q.correct}`).classList.add('correct');
-        expTitle.className = "explanation-title incorrect-text";
-        expTitle.innerHTML = "❌ Respuesta Incorrecta. Revisa las razones:";
-    }
-}
-
-function finishQuiz() {
-    clearInterval(timerInterval);
-    let score = 0;
-    quizData.forEach((q, idx) => {
-        if (userAnswers[idx] === q.correct) {
-            score++;
-        }
-        const expBox = document.getElementById(`exp-${idx}`);
-        expBox.classList.add('visible');
-        if (userAnswers[idx] === undefined) {
-            document.getElementById(`opt-${idx}-${q.correct}`).classList.add('correct');
-        }
-    });
-
-    const summaryBox = document.getElementById('results-summary');
-    summaryBox.style.display = 'block';
-    document.getElementById('user-score').textContent = score;
-
-    let comment = "";
-    if (score === 30) comment = "🏆 ¡Excelencia total! Dominas perfectamente el Participio Pasado, Presente Simple y Continuo.";
-    else if (score >= 23) comment = "👏 ¡Muy buen trabajo! Tienes un gran dominio de los tres temas.";
-    else if (score >= 15) comment = "👍 ¡Buen intento! Repasa las diferencias entre tiempos verbales y las reglas de -ed / -d / irregulares.";
-    else comment = "💪 ¡Sigue practicando! Lee las explicaciones detalladas para reforzar cada tema.";
-    
-    document.getElementById('score-comment').textContent = comment;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-window.onload = renderQuiz;
-</script>
 
 </body>
 </html>
