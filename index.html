@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interactivo de Presente Simple</title>
+    <title>Quiz Mixto: Participio Pasado, Presente Simple y Continuo</title>
     <style>
         :root {
-            --primary: #1e3a8a;
+            --primary: #0f172a;
             --primary-light: #2563eb;
             --bg: #f8fafc;
             --card-bg: #ffffff;
@@ -14,7 +14,6 @@
             --border: #e2e8f0;
             --success: #059669;
             --danger: #dc2626;
-            --warning: #d97706;
         }
 
         body {
@@ -27,12 +26,12 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
 
         .header-card {
-            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            background: linear-gradient(135deg, #1e293b, #2563eb);
             color: white;
             padding: 25px;
             border-radius: 12px;
@@ -47,7 +46,8 @@
 
         .header-card p {
             margin: 0;
-            opacity: 0.9;
+            opacity: 0.95;
+            font-size: 1rem;
         }
 
         .controls-bar {
@@ -61,12 +61,16 @@
             margin-bottom: 25px;
             flex-wrap: wrap;
             gap: 10px;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
         .timer-box {
             font-size: 1.1rem;
             font-weight: bold;
-            color: var(--primary);
+            color: #1e40af;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -75,9 +79,22 @@
         .badge {
             background: #dbeafe;
             color: #1e40af;
-            padding: 4px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .topic-badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: #3730a3;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn {
@@ -93,7 +110,7 @@
         }
 
         .btn:hover {
-            background-color: var(--primary);
+            background-color: #1d4ed8;
         }
 
         .btn-success {
@@ -121,20 +138,13 @@
             padding: 20px 25px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            position: relative;
-        }
-
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
         }
 
         .question-title {
             font-size: 1.15rem;
             font-weight: 600;
             color: #0f172a;
+            margin-bottom: 12px;
         }
 
         .options-container {
@@ -198,9 +208,6 @@
         .explanation-title {
             font-weight: bold;
             margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .explanation-title.correct-text { color: var(--success); }
@@ -228,12 +235,12 @@
         .score-display {
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--primary);
+            color: #1e40af;
             margin: 10px 0;
         }
 
         @media print {
-            .controls-bar, .btn, .timer-badge, .q-timer {
+            .controls-bar, .btn {
                 display: none !important;
             }
             body {
@@ -255,8 +262,9 @@
 
 <div class="container">
     <div class="header-card">
-        <h1>Quiz Interactivo de Presente Simple</h1>
-        <p>20 Preguntas | Tiempo individual: 2 minutos por pregunta | Explicaciones automáticas</p>
+        <h1>Quiz Mixto de Inglés (30 Preguntas)</h1>
+        <p><b>Temas:</b> Participio Pasado (-ed / -d / irregulares) | Presente Simple | Presente Continuo</p>
+        <p><small>⏱️ Tiempo límite: 2 minutos por pregunta | Retroalimentación e historias inmediatas</small></p>
     </div>
 
     <div class="controls-bar">
@@ -272,7 +280,7 @@
 
     <div id="results-summary">
         <h2>🎉 ¡Quiz Finalizado!</h2>
-        <div class="score-display"><span id="user-score">0</span> / 20</div>
+        <div class="score-display"><span id="user-score">0</span> / 30</div>
         <p id="score-comment"></p>
         <button class="btn" onclick="location.reload()">🔄 Reintentar Quiz</button>
     </div>
@@ -283,250 +291,8 @@
 </div>
 
 <script>
-const quizData = [
-    {
-        id: 1,
-        question: "1. She _____ at a hospital every day.",
-        options: ["A) works", "B) work", "C) working", "D) is work"],
-        correct: 0,
-        explanations: [
-            "✓ A) works: Con la 3ª persona del singular (He, She, It), agregamos '-s' al verbo.",
-            "✗ B) work: 'Work' sin '-s' solo se usa para I, You, We, They.",
-            "✗ C) working: Requiere verbo auxiliar To Be (presente continuo).",
-            "✗ D) is work: Estructura agramatical (no se combina 'is' con verbo base)."
-        ]
-    },
-    {
-        id: 2,
-        question: "2. They _____ football on Sundays.",
-        options: ["A) doesn't play", "B) don't play", "C) don't plays", "D) not play"],
-        correct: 1,
-        explanations: [
-            "✗ A) doesn't play: 'Doesn't' es exclusivo para He, She, It.",
-            "✓ B) don't play: El sujeto 'They' utiliza 'don't' seguido del verbo base.",
-            "✗ C) don't plays: Con auxiliar 'don't', el verbo principal NO lleva '-s'.",
-            "✗ D) not play: Se requiere el auxiliar obligatoriamente ('don't')."
-        ]
-    },
-    {
-        id: 3,
-        question: "3. _____ he like coffee?",
-        options: ["A) Do", "B) Is", "C) Does", "D) Are"],
-        correct: 2,
-        explanations: [
-            "✗ A) Do: Se usa para I, You, We, They.",
-            "✗ B) Is: Se usaría con verbo To Be o continuo, no con 'like'.",
-            "✓ C) Does: Auxiliar correcto para preguntas con He, She, It.",
-            "✗ D) Are: Auxiliar plural de To Be."
-        ]
-    },
-    {
-        id: 4,
-        question: "4. John _____ English every night.",
-        options: ["A) studys", "B) studies", "C) study", "D) is studys"],
-        correct: 1,
-        explanations: [
-            "✗ A) studys: Error ortográfico; consonante + 'y' cambia a '-ies'.",
-            "✓ B) studies: Cambio correcto de 'y' por '-ies' para 3ª persona.",
-            "✗ C) study: Forma base sin conjugar para John (He).",
-            "✗ D) is studys: Mezcla incorrecta de To Be y verbo conjugado."
-        ]
-    },
-    {
-        id: 5,
-        question: "5. Water _____ at 100 degrees Celsius.",
-        options: ["A) boil", "B) boils", "C) boiling", "D) is boil"],
-        correct: 1,
-        explanations: [
-            "✗ A) boil: Le falta la '-s' necesaria para 'Water' (It).",
-            "✓ B) boils: Sustantivo incontable (It) + regla de hechos universales.",
-            "✗ C) boiling: Gerundio sin auxiliar.",
-            "✗ D) is boil: Mezcla agramatical."
-        ]
-    },
-    {
-        id: 6,
-        question: "6. What time _____ the train leave?",
-        options: ["A) do", "B) does", "C) is", "D) are"],
-        correct: 1,
-        explanations: [
-            "✗ A) do: No concuerda con 'the train' (It).",
-            "✓ B) does: Auxiliar obligatorio para 'the train' (3ª persona singular).",
-            "✗ C) is: Exigiría 'leaving' en vez de 'leave'.",
-            "✗ D) are: Incompatible con sujeto singular."
-        ]
-    },
-    {
-        id: 7,
-        question: "7. My parents _____ in Madrid.",
-        options: ["A) lives", "B) live", "C) living", "D) is live"],
-        correct: 1,
-        explanations: [
-            "✗ A) lives: Solo para singular (He/She/It), no para plural.",
-            "✓ B) live: 'My parents' equivale a 'They' (plural), verbo en forma base.",
-            "✗ C) living: Forma en '-ing'.",
-            "✗ D) is live: Incompatible sujeto y verbo."
-        ]
-    },
-    {
-        id: 8,
-        question: "8. Sarah _____ two brothers.",
-        options: ["A) haves", "B) has", "C) having", "D) is have"],
-        correct: 1,
-        explanations: [
-            "✗ A) haves: Palabra inexistente en inglés.",
-            "✓ B) has: Forma irregular de 'have' para 3ª persona (She).",
-            "✗ C) having: Participio/gerundio.",
-            "✗ D) is have: Construcción agramatical."
-        ]
-    },
-    {
-        id: 9,
-        question: "9. We _____ TV in the morning.",
-        options: ["A) don't watch", "B) doesn't watch", "C) not watch", "D) aren't watch"],
-        correct: 0,
-        explanations: [
-            "✓ A) don't watch: Negación correcta para 'We'.",
-            "✗ B) doesn't watch: 'Doesn't' es solo para He, She, It.",
-            "✗ C) not watch: Falta el auxiliar 'do'.",
-            "✗ D) aren't watch: No se usa To Be con verbo de acción base."
-        ]
-    },
-    {
-        id: 10,
-        question: "10. Where _____ your sister work?",
-        options: ["A) do", "B) does", "C) is", "D) are"],
-        correct: 1,
-        explanations: [
-            "✗ A) do: Se usa para I, You, We, They.",
-            "✓ B) does: Auxiliar para 'your sister' (She).",
-            "✗ C) is: Exigiría 'working'.",
-            "✗ D) are: Error de plural y de tiempo."
-        ]
-    },
-    {
-        id: 11,
-        question: "11. The sun _____ in the east.",
-        options: ["A) rise", "B) rises", "C) rising", "D) riss"],
-        correct: 1,
-        explanations: [
-            "✗ A) rise: Falta la '-s' obligatoria para 'The sun' (It).",
-            "✓ B) rises: Agrega '-s' a la 3ª persona del singular.",
-            "✗ C) rising: Participio sin To Be.",
-            "✗ D) riss: Error de ortografía."
-        ]
-    },
-    {
-        id: 12,
-        question: "12. I usually _____ to bed at 10 PM.",
-        options: ["A) goes", "B) go", "C) going", "D) am go"],
-        correct: 1,
-        explanations: [
-            "✗ A) goes: Exclusivo de He, She, It.",
-            "✓ B) go: Con la primera persona 'I' el verbo va en forma base.",
-            "✗ C) going: Cambia el tiempo a continuo.",
-            "✗ D) am go: Mezcla To Be con verbo base."
-        ]
-    },
-    {
-        id: 13,
-        question: "13. Mark _____ spicy food.",
-        options: ["A) don't likes", "B) doesn't likes", "C) doesn't like", "D) don't like"],
-        correct: 2,
-        explanations: [
-            "✗ A) don't likes: Auxiliar y verbo incorrectos.",
-            "✗ B) doesn't likes: ¡Ojo! Al usar 'doesn't', la '-s' del verbo desaparece.",
-            "✓ C) doesn't like: Auxiliar 'doesn't' + verbo principal en forma base.",
-            "✗ D) don't like: Auxiliar para plural o I/You."
-        ]
-    },
-    {
-        id: 14,
-        question: "14. How often _____ you exercise?",
-        options: ["A) does", "B) do", "C) are", "D) is"],
-        correct: 1,
-        explanations: [
-            "✗ A) does: Solo para He, She, It.",
-            "✓ B) do: Auxiliar correcto para el sujeto 'You'.",
-            "✗ C) are: Exigiría 'exercising'.",
-            "✗ D) is: Incompatible con 'You'."
-        ]
-    },
-    {
-        id: 15,
-        question: "15. The teacher _____ history.",
-        options: ["A) teachs", "B) teaches", "C) teach", "D) teaching"],
-        correct: 1,
-        explanations: [
-            "✗ A) teachs: Falta la 'e'; tras '-ch' se añade '-es'.",
-            "✓ B) teaches: Regla de ortografía: verbos terminados en '-ch' añaden '-es'.",
-            "✗ C) teach: Sin conjugación de 3ª persona.",
-            "✗ D) teaching: Gerundio incompleto."
-        ]
-    },
-    {
-        id: 16,
-        question: "16. Cats _____ mice.",
-        options: ["A) catches", "B) catch", "C) catching", "D) is catch"],
-        correct: 1,
-        explanations: [
-            "✗ A) catches: Solo si fuera un solo gato (The cat catches).",
-            "✓ B) catch: 'Cats' es plural (They), verbo en forma base.",
-            "✗ C) catching: Forma gerundia.",
-            "✗ D) is catch: Error de concordancia y estructura."
-        ]
-    },
-    {
-        id: 17,
-        question: "17. It _____ a lot in winter.",
-        options: ["A) rain", "B) rains", "C) raining", "D) raines"],
-        correct: 1,
-        explanations: [
-            "✗ A) rain: Le falta la '-s' para 'It'.",
-            "✓ B) rains: Añade '-s' para la 3ª persona singular (It).",
-            "✗ C) raining: Participio presente.",
-            "✗ D) raines: Ortografía incorrecta (no lleva 'e')."
-        ]
-    },
-    {
-        id: 18,
-        question: "18. _____ you know the answer?",
-        options: ["A) Does", "B) Are", "C) Do", "D) Is"],
-        correct: 2,
-        explanations: [
-            "✗ A) Does: Solo para He, She, It.",
-            "✗ B) Are: 'Are you know' es un error común; 'know' va con 'Do'.",
-            "✓ C) Do: Auxiliar correcto para 'You'.",
-            "✗ D) Is: Incompatible con 'You'."
-        ]
-    },
-    {
-        id: 19,
-        question: "19. Daniel always _____ his car on Saturdays.",
-        options: ["A) washs", "B) washes", "C) wash", "D) washing"],
-        correct: 1,
-        explanations: [
-            "✗ A) washs: Error ortográfico; tras '-sh' corresponde '-es'.",
-            "✓ B) washes: Terminación '-es' requerida para verbos finalizados en '-sh'.",
-            "✗ C) wash: Sin conjugar para Daniel (He).",
-            "✗ D) washing: Forma continua."
-        ]
-    },
-    {
-        id: 20,
-        question: "20. She never _____ by plane.",
-        options: ["A) flys", "B) flies", "C) fly", "D) flying"],
-        correct: 1,
-        explanations: [
-            "✗ A) flys: Ortografía incorrecta.",
-            "✓ B) flies: 'Fly' cambia 'y' por '-ies' con 'She'. 'Never' no quita la regla.",
-            "✗ C) fly: Forma base sin conjugar.",
-            "✗ D) flying: Gerundio."
-        ]
-    }
-];
+const quizData = [{'topic': 'Present Simple', 'question': '20. My parents _____ in a big house.', 'options': ['A) live', 'B) lives', 'C) living', 'D) is live'], 'correct': 0, 'explanations': ["✓ A) live: 'My parents' (They) usa el verbo en su forma base.", '✗ B) lives: Es solo para singular (He/She/It).', '✗ C) living: Forma gerundia.', '✗ D) is live: Error de concordancia y estructura.'], 'display_question': '1. My parents _____ in a big house.'}, {'topic': 'Present Simple', 'question': '15. I usually _____ coffee in the morning.', 'options': ['A) drinks', 'B) drink', 'C) drinking', 'D) am drink'], 'correct': 1, 'explanations': ['✗ A) drinks: Solo para He/She/It.', "✓ B) drink: Con el sujeto 'I' el verbo permanece en su forma base.", '✗ C) drinking: Gerundio.', '✗ D) am drink: Mezcla agramatical.'], 'display_question': '2. I usually _____ coffee in the morning.'}, {'topic': 'Present Simple', 'question': '11. My brother _____ in a bank.', 'options': ['A) work', 'B) works', 'C) working', 'D) is work'], 'correct': 1, 'explanations': ["✗ A) work: Falta la '-s' para la 3ª persona.", "✓ B) works: Con 'My brother' (He) añadimos '-s' al verbo en presente simple.", '✗ C) working: Requiere verbo auxiliar To Be.', '✗ D) is work: Mezcla agramatical.'], 'display_question': '3. My brother _____ in a bank.'}, {'topic': 'Present Continuous', 'question': '27. Why _____ they running so fast?', 'options': ['A) do', 'B) is', 'C) are', 'D) does'], 'correct': 2, 'explanations': ['✗ A) do: No se usa con gerundios (-ing).', "✗ B) is: Incompatible con plural 'they'.", "✓ C) are: Auxiliar To Be correcto para 'they' en pregunta de presente continuo.", '✗ D) does: Auxiliar de presente simple.'], 'display_question': '4. Why _____ they running so fast?'}, {'topic': 'Present Continuous', 'question': '23. Listen! Someone _____ the piano.', 'options': ['A) plays', 'B) is playing', 'C) play', 'D) are playing'], 'correct': 1, 'explanations': ['✗ A) plays: Presente simple.', '✓ B) is playing: Presente continuo para una acción ocurriendo en el instante.', '✗ C) play: Forma base.', "✗ D) are playing: 'Someone' es singular, requiere 'is'."], 'display_question': '5. Listen! Someone _____ the piano.'}, {'topic': 'Past Participle', 'question': '7. We have _____ all our luggage.', 'options': ['A) packed', 'B) pack', 'C) packing', 'D) packs'], 'correct': 0, 'explanations': ["✓ A) packed: Participio pasado regular (se añade '-ed' a 'pack').", '✗ B) pack: Forma base.', '✗ C) packing: Gerundio.', '✗ D) packs: Presente simple.'], 'display_question': '6. We have _____ all our luggage.'}, {'topic': 'Past Participle', 'question': '6. I have never _____ to Japan.', 'options': ['A) be', 'B) been', 'C) was', 'D) being'], 'correct': 1, 'explanations': ['✗ A) be: Forma base.', "✓ B) been: Participio pasado irregular del verbo 'To Be'.", '✗ C) was: Pasado simple singular.', '✗ D) being: Gerundio.'], 'display_question': '7. I have never _____ to Japan.'}, {'topic': 'Present Simple', 'question': '13. _____ she speak French fluently?', 'options': ['A) Do', 'B) Is', 'C) Does', 'D) Are'], 'correct': 2, 'explanations': ['✗ A) Do: Se usa para I, You, We, They.', "✗ B) Is: Exigiría 'speaking'.", '✓ C) Does: Auxiliar interrogativo correcto para 3ª persona (She).', '✗ D) Are: Auxiliar de plural To Be.'], 'display_question': '8. _____ she speak French fluently?'}, {'topic': 'Present Simple', 'question': '12. They _____ like spicy food.', 'options': ["A) doesn't", "B) don't", "C) aren't", 'D) not'], 'correct': 1, 'explanations': ["✗ A) doesn't: Se usa solo con He, She, It.", "✓ B) don't: Auxiliar de negación correcto para 'They' en presente simple.", "✗ C) aren't: Se usaría con verbo en gerundio.", "✗ D) not: Requiere el auxiliar 'do'."], 'display_question': '9. They _____ like spicy food.'}, {'topic': 'Present Simple', 'question': '16. The train _____ at 8:00 AM every day.', 'options': ['A) leave', 'B) leaves', 'C) leaving', 'D) is leave'], 'correct': 1, 'explanations': ["✗ A) leave: Sin '-s' para 'The train' (It).", "✓ B) leaves: Se añade '-s' al sujeto singular de 3ª persona.", '✗ C) leaving: Gerundio.', '✗ D) is leave: Construcción incorrecta.'], 'display_question': '10. The train _____ at 8:00 AM every day.'}, {'topic': 'Past Participle', 'question': '10. The room has been _____ thoroughly.', 'options': ['A) cleaned', 'B) clean', 'C) cleaning', 'D) cleans'], 'correct': 0, 'explanations': ["✓ A) cleaned: Participio pasado regular (se añade '-ed').", '✗ B) clean: Forma base / adjetivo.', '✗ C) cleaning: Gerundio.', '✗ D) cleans: Presente simple.'], 'display_question': '11. The room has been _____ thoroughly.'}, {'topic': 'Present Continuous', 'question': '26. She _____ sleeping; she is reading a book.', 'options': ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], 'correct': 0, 'explanations': ["✓ A) isn't: Auxiliar negativo de To Be para 'She' antes de 'sleeping'.", "✗ B) doesn't: Auxiliar de presente simple, no va con '-ing'.", "✗ C) don't: Para presente simple plural.", "✗ D) aren't: No concuerda con 'She'."], 'display_question': '12. She _____ sleeping; she is reading a book.'}, {'topic': 'Present Continuous', 'question': "30. He _____ wearing a coat today because it's hot.", 'options': ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], 'correct': 0, 'explanations': ["✓ A) isn't: Negación del presente continuo [He + isn't + wearing].", "✗ B) doesn't: Auxiliar de presente simple (no va con '-ing').", "✗ C) don't: Incompatible con 'He'.", "✗ D) aren't: Incompatible con 'He'."], 'display_question': "13. He _____ wearing a coat today because it's hot."}, {'topic': 'Present Continuous', 'question': '22. They _____ TV at the moment.', 'options': ['A) watch', 'B) are watching', 'C) is watching', 'D) watches'], 'correct': 1, 'explanations': ['✗ A) watch: Presente simple.', "✓ B) are watching: Presente continuo con auxiliar 'are' para 'They'.", "✗ C) is watching: 'Is' no concuerda con el plural 'They'.", '✗ D) watches: Presente simple 3ª persona.'], 'display_question': '14. They _____ TV at the moment.'}, {'topic': 'Present Simple', 'question': '17. We _____ go to the beach in winter.', 'options': ["A) doesn't", "B) don't", "C) aren't", 'D) not'], 'correct': 1, 'explanations': ["✗ A) doesn't: Solo para 3ª persona singular.", "✓ B) don't: Negación correcta en presente simple para 'We'.", "✗ C) aren't: Exigiría 'going'.", "✗ D) not: Falta el auxiliar 'do'."], 'display_question': '15. We _____ go to the beach in winter.'}, {'topic': 'Present Continuous', 'question': '28. We _____ dinner together tonight.', 'options': ['A) are having', 'B) have', 'C) has', 'D) is having'], 'correct': 0, 'explanations': ['✓ A) are having: Presente continuo para planes futuros cercanos / acción continua.', '✗ B) have: Presente simple.', '✗ C) has: Presente simple 3ª persona.', "✗ D) is having: 'Is' no concuerda con 'We'."], 'display_question': '16. We _____ dinner together tonight.'}, {'topic': 'Past Participle', 'question': '2. They have _____ in London for three years.', 'options': ['A) lived', 'B) live', 'C) living', 'D) lives'], 'correct': 0, 'explanations': ["✓ A) lived: Participio pasado del verbo terminado en '-e' (solo se le añade '-d').", '✗ B) live: Forma base.', '✗ C) living: Gerundio.', '✗ D) lives: Presente simple 3ª persona.'], 'display_question': '17. They have _____ in London for three years.'}, {'topic': 'Present Simple', 'question': '14. Water _____ at 0 degrees Celsius.', 'options': ['A) freezes', 'B) freeze', 'C) freezing', 'D) is freeze'], 'correct': 0, 'explanations': ["✓ A) freezes: 'Water' (It) añade '-es' para verdades universales.", '✗ B) freeze: Le falta la conjugación para 3ª persona.', '✗ C) freezing: Gerundio.', '✗ D) is freeze: Estructura incorrecta.'], 'display_question': '18. Water _____ at 0 degrees Celsius.'}, {'topic': 'Present Simple', 'question': '19. She _____ hard for her exams.', 'options': ['A) study', 'B) studys', 'C) studies', 'D) is study'], 'correct': 2, 'explanations': ['✗ A) study: Forma sin conjugar.', "✗ B) studys: Error ortográfico; consonante + 'y' pasa a '-ies'.", "✓ C) studies: Regla ortográfica correcta para 'She' en presente simple.", '✗ D) is study: Estructura agramatical.'], 'display_question': '19. She _____ hard for her exams.'}, {'topic': 'Past Participle', 'question': '3. Have you ever _____ a sports car?', 'options': ['A) drive', 'B) drove', 'C) driven', 'D) driving'], 'correct': 2, 'explanations': ['✗ A) drive: Forma base en presente.', '✗ B) drove: Pasado simple.', "✓ C) driven: Participio pasado irregular del verbo 'drive'.", '✗ D) driving: Gerundio.'], 'display_question': '20. Have you ever _____ a sports car?'}, {'topic': 'Present Simple', 'question': '18. How often _____ you go to the gym?', 'options': ['A) do', 'B) does', 'C) are', 'D) is'], 'correct': 0, 'explanations': ["✓ A) do: Auxiliar interrogativo correcto para 'you' en presente simple.", '✗ B) does: Solo para He, She, It.', "✗ C) are: Exigiría 'going'.", "✗ D) is: Incompatible con 'you'."], 'display_question': '21. How often _____ you go to the gym?'}, {'topic': 'Present Continuous', 'question': '29. The baby _____ in her crib right now.', 'options': ['A) sleeps', 'B) is sleeping', 'C) sleep', 'D) are sleeping'], 'correct': 1, 'explanations': ['✗ A) sleeps: Presente simple (rutinas).', "✓ B) is sleeping: 'The baby' (singular) + 'is' + verbo-ing para el momento actual.", '✗ C) sleep: Forma base.', "✗ D) are sleeping: 'Are' no concuerda con sujeto singular."], 'display_question': '22. The baby _____ in her crib right now.'}, {'topic': 'Past Participle', 'question': '5. The door was _____ by the security guard.', 'options': ['A) close', 'B) closing', 'C) closed', 'D) closes'], 'correct': 2, 'explanations': ['✗ A) close: Forma base.', '✗ B) closing: Gerundio.', "✓ C) closed: Participio pasado regular del verbo 'close' (terminado en '-e', se añade '-d').", '✗ D) closes: Presente simple 3ª persona.'], 'display_question': '23. The door was _____ by the security guard.'}, {'topic': 'Present Continuous', 'question': '25. I _____ for my English test today.', 'options': ['A) am studying', 'B) study', 'C) is studying', 'D) studies'], 'correct': 0, 'explanations': ['✓ A) am studying: Presente continuo [I + am + verbo-ing].', '✗ B) study: Presente simple.', "✗ C) is studying: 'Is' no concuerda con 'I'.", '✗ D) studies: Solo para 3ª persona singular.'], 'display_question': '24. I _____ for my English test today.'}, {'topic': 'Past Participle', 'question': '8. Has she _____ her keys again?', 'options': ['A) lose', 'B) lost', 'C) losing', 'D) loosed'], 'correct': 1, 'explanations': ['✗ A) lose: Forma base.', "✓ B) lost: Participio pasado irregular de 'lose'.", '✗ C) losing: Gerundio.', '✗ D) loosed: Forma inexistente para este contexto.'], 'display_question': '25. Has she _____ her keys again?'}, {'topic': 'Past Participle', 'question': '9. The cake was _____ by my grandmother.', 'options': ['A) make', 'B) maked', 'C) made', 'D) making'], 'correct': 2, 'explanations': ['✗ A) make: Forma base.', "✗ B) maked: Forma incorrecta; 'make' es irregular.", "✓ C) made: Participio pasado irregular del verbo 'make'.", '✗ D) making: Gerundio.'], 'display_question': '26. The cake was _____ by my grandmother.'}, {'topic': 'Present Continuous', 'question': '24. What _____ you doing right now?', 'options': ['A) do', 'B) are', 'C) is', 'D) does'], 'correct': 1, 'explanations': ["✗ A) do: Se usaría si el verbo fuera 'do' en presente simple, no con 'doing'.", "✓ B) are: Auxiliar del verbo To Be necesario para 'you' en presente continuo.", "✗ C) is: Incompatible con 'you'.", '✗ D) does: Auxiliar de presente simple.'], 'display_question': '27. What _____ you doing right now?'}, {'topic': 'Past Participle', 'question': '1. She has already _____ her homework.', 'options': ['A) finish', 'B) finished', 'C) finishing', 'D) finishes'], 'correct': 1, 'explanations': ['✗ A) finish: Forma base del verbo.', "✓ B) finished: Participio pasado regular (se añade '-ed' a 'finish').", '✗ C) finishing: Participio presente / gerundio.', '✗ D) finishes: Presente simple en 3ª persona.'], 'display_question': '28. She has already _____ her homework.'}, {'topic': 'Past Participle', 'question': '4. He has _____ all the emails this morning.', 'options': ['A) wrote', 'B) written', 'C) write', 'D) writing'], 'correct': 1, 'explanations': ['✗ A) wrote: Pasado simple.', "✓ B) written: Participio pasado irregular de 'write'.", '✗ C) write: Forma base.', '✗ D) writing: Gerundio.'], 'display_question': '29. He has _____ all the emails this morning.'}, {'topic': 'Present Continuous', 'question': '21. Look! It _____ right now.', 'options': ['A) rains', 'B) is raining', 'C) rain', 'D) is rain'], 'correct': 1, 'explanations': ['✗ A) rains: Presente simple (hábitos/hechos, no acción que sucede ahora).', '✓ B) is raining: Presente continuo [To Be (is) + verbo-ing] para acciones del momento.', '✗ C) rain: Forma base.', "✗ D) is rain: Falta la terminación '-ing'."], 'display_question': '30. Look! It _____ right now.'}];
 
-let currentQuestion = 0;
 let userAnswers = {};
 let timeLeft = 120;
 let timerInterval;
@@ -540,7 +306,6 @@ function startTimer() {
         updateTimerDisplay();
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
-            // Auto avance opcional o alerta
         }
     }, 1000);
 }
@@ -555,9 +320,8 @@ function renderQuiz() {
     const container = document.getElementById('questions-container');
     container.innerHTML = quizData.map((q, idx) => `
         <div class="question-card" id="q-card-${idx}">
-            <div class="question-header">
-                <div class="question-title">${q.question}</div>
-            </div>
+            <span class="topic-badge">${q.topic}</span>
+            <div class="question-title">${q.display_question}</div>
             <div class="options-container">
                 ${q.options.map((opt, optIdx) => `
                     <button class="option-btn" id="opt-${idx}-${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
@@ -579,7 +343,6 @@ function renderQuiz() {
 function selectOption(qIdx, optIdx) {
     userAnswers[qIdx] = optIdx;
     
-    // reset visual selection for this question
     for(let i = 0; i < 4; i++) {
         const btn = document.getElementById(`opt-${qIdx}-${i}`);
         btn.classList.remove('selected', 'correct', 'incorrect');
@@ -588,7 +351,6 @@ function selectOption(qIdx, optIdx) {
     const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
     selectedBtn.classList.add('selected');
 
-    // Show instant feedback and explanation
     const q = quizData[qIdx];
     const expBox = document.getElementById(`exp-${qIdx}`);
     const expTitle = document.getElementById(`exp-title-${qIdx}`);
@@ -614,7 +376,6 @@ function finishQuiz() {
         if (userAnswers[idx] === q.correct) {
             score++;
         }
-        // show explanations for all
         const expBox = document.getElementById(`exp-${idx}`);
         expBox.classList.add('visible');
         if (userAnswers[idx] === undefined) {
@@ -627,10 +388,10 @@ function finishQuiz() {
     document.getElementById('user-score').textContent = score;
 
     let comment = "";
-    if (score === 20) comment = "🏆 ¡Perfecto! Dominas completamente el Presente Simple.";
-    else if (score >= 15) comment = "👏 ¡Muy bien! Tienes un gran dominio, revisa los pequeños detalles.";
-    else if (score >= 10) comment = "👍 Buen intento. Revisa las reglas de la 3ª persona y los auxiliares.";
-    else comment = "💪 ¡Sigue practicando! Lee atentamente cada explicación para mejorar.";
+    if (score === 30) comment = "🏆 ¡Excelencia total! Dominas perfectamente el Participio Pasado, Presente Simple y Continuo.";
+    else if (score >= 23) comment = "👏 ¡Muy buen trabajo! Tienes un gran dominio de los tres temas.";
+    else if (score >= 15) comment = "👍 ¡Buen intento! Repasa las diferencias entre tiempos verbales y las reglas de -ed / -d / irregulares.";
+    else comment = "💪 ¡Sigue practicando! Lee las explicaciones detalladas para reforzar cada tema.";
     
     document.getElementById('score-comment').textContent = comment;
     window.scrollTo({ top: 0, behavior: 'smooth' });
