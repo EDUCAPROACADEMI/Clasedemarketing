@@ -3,259 +3,640 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Educa Pro+</title>
+    <title>Quiz Interactivo de Presente Simple</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #2563eb;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --success: #059669;
+            --danger: #dc2626;
+            --warning: #d97706;
         }
+
         body {
-            background: linear-gradient(135deg, #0f0c1b, #2b0938, #540d5e);
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 20px;
+            line-height: 1.6;
         }
-        .quiz-container {
-            background: rgba(20, 15, 35, 0.85);
-            border: 2px solid #bd10e0;
-            border-radius: 15px;
-            padding: 30px;
-            width: 100%;
-            max-width: 650px;
-            box-shadow: 0 0 25px rgba(189, 16, 224, 0.4);
-            text-align: center;
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
         }
-        h1 {
-            color: #00f3ff;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
-        }
-        h2 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: #f1f1f1;
-        }
-        input[type="text"] {
-            width: 80%;
-            padding: 12px;
-            border-radius: 25px;
-            border: 2px solid #bd10e0;
-            background: #1a1528;
-            color: #fff;
-            font-size: 1rem;
-            text-align: center;
-            outline: none;
-            margin-bottom: 20px;
-        }
-        button {
-            background: linear-gradient(90deg, #bd10e0, #00f3ff);
-            color: #fff;
-            border: none;
-            padding: 12px 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 15px #00f3ff;
-        }
-        .timer {
-            font-size: 1.3rem;
-            color: #ff3366;
-            font-weight: bold;
-            margin-bottom: 15px;
-            text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
-        }
-        .options-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-            text-align: left;
-        }
-        .option-btn {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: left;
-            font-size: 0.95rem;
-            transition: background 0.2s;
-        }
-        .option-btn:hover {
-            background: rgba(189, 16, 224, 0.3);
-            border-color: #bd10e0;
-        }
-        .hidden {
-            display: none;
-        }
-        .whatsapp-btn {
-            background: #25D366;
+
+        .header-card {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
             color: white;
-            padding: 15px 30px;
-            font-size: 1.1rem;
-            border-radius: 30px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 20px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        .whatsapp-btn:hover {
-            background: #1ebd59;
-            transform: scale(1.05);
+
+        .header-card h1 {
+            margin: 0 0 10px 0;
+            font-size: 1.8rem;
+        }
+
+        .header-card p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .controls-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timer-box {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .btn {
+            background-color: var(--primary-light);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+        }
+
+        .btn-success {
+            background-color: var(--success);
+        }
+
+        .btn-success:hover {
+            background-color: #047857;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-light);
+            color: var(--primary-light);
+        }
+
+        .btn-outline:hover {
+            background: #eff6ff;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            position: relative;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .question-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #0f172a;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .option-btn {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text);
+            width: 100%;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            border-color: var(--primary-light);
+            background: #eff6ff;
+        }
+
+        .option-btn.selected {
+            border-color: var(--primary-light);
+            background: #dbeafe;
+            font-weight: bold;
+        }
+
+        .option-btn.correct {
+            background: #d1fae5 !important;
+            border-color: var(--success) !important;
+            color: #065f46;
+            font-weight: bold;
+        }
+
+        .option-btn.incorrect {
+            background: #fee2e2 !important;
+            border-color: var(--danger) !important;
+            color: #991b1b;
+        }
+
+        .explanation-box {
+            display: none;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .explanation-box.visible {
+            display: block;
+        }
+
+        .explanation-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-title.correct-text { color: var(--success); }
+        .explanation-title.incorrect-text { color: var(--danger); }
+
+        .explanation-list {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+        .explanation-list li {
+            margin-bottom: 4px;
+        }
+
+        #results-summary {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--primary-light);
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .score-display {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+
+        @media print {
+            .controls-bar, .btn, .timer-badge, .q-timer {
+                display: none !important;
+            }
+            body {
+                background: white;
+                padding: 0;
+            }
+            .question-card {
+                break-inside: avoid;
+                border: 1px solid #ccc;
+                box-shadow: none;
+            }
+            .explanation-box {
+                display: block !important;
+            }
         }
     </style>
 </head>
 <body>
 
-<div class="quiz-container">
-    <div id="welcome-screen">
-        <h1>✨ Bienvenido a Educa Pro+ ✨</h1>
-        <h2>La Nueva Era del Marketing: IA + Comunidad</h2>
-        <p>Por favor, ingresa tu nombre para comenzar el reto de 20 preguntas.</p>
-        <p><small>Tienes 2 minutos por pregunta. Si el tiempo se agota, pasará a la siguiente.</small></p>
-        <input type="text" id="username" placeholder="Tu Nombre y Apellido" autocomplete="off"><br>
-        <button onclick="startQuiz()">Comenzar Quiz</button>
+<div class="container">
+    <div class="header-card">
+        <h1>Quiz Interactivo de Presente Simple</h1>
+        <p>20 Preguntas | Tiempo individual: 2 minutos por pregunta | Explicaciones automáticas</p>
     </div>
 
-    <div id="quiz-screen" class="hidden">
-        <div id="progress" style="color: #00f3ff; font-weight: bold; margin-bottom: 5px;">Pregunta 1 de 20</div>
-        <div class="timer">Tiempo restante: <span id="time">02:00</span></div>
-        <h3 id="question-text" style="font-size: 1.3rem; margin-bottom: 20px;">Cargando pregunta...</h3>
-        <div class="options-container" id="options-box">
-            </div>
+    <div class="controls-bar">
+        <div class="timer-box">
+            <span>⏱️ Tiempo Pregunta Actual:</span>
+            <span id="question-timer" class="badge">02:00</span>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" onclick="window.print()">🖨️ Guardar / Imprimir PDF</button>
+            <button class="btn btn-success" onclick="finishQuiz()">📊 Finalizar y Ver Resultado</button>
+        </div>
     </div>
 
-    <div id="result-screen" class="hidden">
-        <h1>🏆 ¡Quiz Finalizado! 🏆</h1>
-        <p id="feedback-score" style="font-size: 1.4rem; margin-top: 20px;"></p>
-        <p>Para registrar tu nota y finalizar el reto de la Clase 2, haz clic en el botón de abajo para enviar tus respuestas al docente:</p>
-        <a id="ws-link" href="#" target="_blank" class="whatsapp-btn">📲 Enviar Resultados por WhatsApp</a>
+    <div id="results-summary">
+        <h2>🎉 ¡Quiz Finalizado!</h2>
+        <div class="score-display"><span id="user-score">0</span> / 20</div>
+        <p id="score-comment"></p>
+        <button class="btn" onclick="location.reload()">🔄 Reintentar Quiz</button>
+    </div>
+
+    <div id="questions-container">
+        <!-- Preguntas inyectadas por JS -->
     </div>
 </div>
 
 <script>
-    // Banco de 20 preguntas basadas en las imágenes provistas
-    const questions = [
-        { q: "¿Qué es el Marketing Digital hoy en día?", a: ["Solo publicar en redes sociales de forma masiva", "Pagar anuncios costosos en buscadores", "El conjunto de estrategias orientadas a conectar con las personas correctas, en el momento correcto, usando canales digitales", "Enviar correos electrónicos a bases de datos compradas"], c: 2 },
-        { q: "¿En qué consiste la 'Hiper-personalización con IA'?", a: ["En mandar el mismo mensaje a toda la masa de seguidores", "En usar datos e IA para crear experiencias personalizadas orientadas a los dolores específicos de cada cliente", "En diseñar un solo anuncio publicitario para todo el país", "En automatizar respuestas automáticas sin usar datos del usuario"], c: 1 },
-        { q: "Según las diapositivas, ¿cómo se mide el éxito digital actualmente?", a: ["Por tener millones de seguidores aunque no interactúen", "Por la cantidad de publicaciones diarias que se realizan", "En la confianza y la lealtad que generas en tu comunidad", "Por el diseño visual del logotipo"], c: 2 },
-        { q: "Tener miles de seguidores ya no sirve si...", a: ["No tienen cuentas verificadas", "No interactúan", "No compran todos los días", "No comparten memes"], c: 1 },
-        { q: "¿Qué es lo primero que se debe hacer para un 'Análisis de Entorno potencial'?", a: ["Invertir todo el presupuesto en anuncios de Meta", "Entender dónde estamos parados frente al mercado y la competencia", "Contratar inmediatamente a un editor de videos", "Crear una página web desde cero"], c: 1 },
-        { q: "¿Qué herramientas gratuitas se mencionan para descubrir tendencias sin presupuesto?", a: ["ChatGPT Premium y Midjourney", "Google Trends y la biblioteca de anuncios de Meta", "Excel y Canva Pro", "WhatsApp Business y CapCut"], c: 1 },
-        { q: "¿Qué permite descubrir la biblioteca de anuncios de Meta o Google Trends?", a: ["Los datos bancarios de la competencia", "Qué está buscando el público en tiempo real", "Los algoritmos secretos de Instagram", "El diseño de avatares automáticos"], c: 1 },
-        { q: "Para vender con éxito el curso de videos con IA, las diapositivas advierten que no podemos...", a: ["Cobrar muy barato", "Usar redes sociales", "Disparar a ciegas (debemos entender la mente del comprador)", "Usar herramientas gratuitas"], c: 2 },
-        { q: "¿Cuál es el problema principal de definir el mercado solo como 'Público Objetivo' (ej. Hombres y mujeres de 25 a 45 años...)?", a: ["Es un grupo demasiado amplio y no te dice por qué comprarían tu curso", "Es un grupo muy pequeño que no genera ganancias", "No incluye filtros de países", "No utiliza segmentación por Inteligencia Artificial"], c: 0 },
-        { q: "¿Qué herramienta te ayuda a entender la mente, frustraciones y metas específicas de un cliente ideal?", a: ["El Público Objetivo masivo", "El Buyer Persona", "Google Trends", "La biblioteca de anuncios"], c: 1 },
-        { q: "En el ejemplo de la clase, ¿cuál es la frustración de 'Carlos' (el Buyer Persona de 32 años)?", a: ["No sabe usar una computadora de escritorio", "Le da muchísima pena salir ante la cámara, no tiene tiempo para editar y pagar un editor es costoso", "No tiene dinero para comprar un teléfono celular moderno", "No le interesa el marketing digital"], c: 1 },
-        { q: "¿Cuál es la meta de Carlos en el ejercicio práctico?", a: ["Gastar menos presupuesto en publicidad tradicional", "Crear contenido profesional, rápido y constante sin mostrar su rostro", "Aprender a programar páginas web desde cero", "Vender su negocio local y volverse creador de contenido de tiempo completo"], c: 1 },
-        { q: "¿Cuál es la 'Solución' que ofrece Educa Pro+ para el problema de Carlos?", a: ["Un curso de finanzas avanzadas", "Un curso de videos generados con IA donde aprenderá a automatizar avatares, guiones y edición en minutos", "Un servicio de agencia para administrarle las redes sociales", "Un software de edición de videos para computadoras profesionales"], c: 1 },
-        { q: "En los objetivos SMART, ¿qué significa la letra 'S'?", a: ["Seguro (Safe)", "Específico (Specific) - Qué vas a hacer", "Sostenible (Sustainable)", "Seguidores (Followers)"], c: 1 },
-        { q: "En los objetivos SMART, ¿qué significa la letra 'M'?", a: ["Masivo", "Medible - Cuántos (ej. 20 alumnos inscritos)", "Mercado", "Meta"], c: 1 },
-        { q: "En los objetivos SMART, ¿qué significa la letra 'A'?", a: ["Alcanzable - Es realista para tu presupuesto y tiempo", "Anuncio", "Automático", "Algoritmo"], c: 0 },
-        { q: "En los objetivos SMART, ¿qué significa la letra 'R'?", a: ["Redes Sociales", "Relevante - Importante para el negocio (ej. Generar ingresos y testimonios)", "Rápido", "Reto diario"], c: 1 },
-        { q: "En los objetivos SMART, ¿qué significa la letra 'T'?", a: ["Tendencia", "Tiempo - Cuándo (ej. En los próximos 30 días)", "TikTok", "Trabajo"], c: 1 },
-        { q: "¿Cuál es el 'Reto Práctico' asignado para la Clase 2?", a: ["Pagar 100 dólares en anuncios de Meta", "Terminar de rellenar la ficha de tu Buyer Persona y redactar 2 objetivos SMART enfocados en el lanzamiento o comunidad", "Crear un canal de YouTube y subir 10 videos", "Enviar un correo electrónico a educaproacademi@gmail.com con tu currículum"], c: 1 },
-        { q: "¿Cuál es el correo electrónico oficial de contacto que aparece en la presentación de Educa Pro+?", a: ["contacto@educapro.com", "educaproacademi@gmail.com", "educaprosoporte@gmail.com", "ia.educapro@gmail.com"], c: 1 }
-    ];
-
-    let currentQuestion = 0;
-    let score = 0;
-    let username = "";
-    let timerInterval;
-    let timeLeft = 120; // 2 minutos por pregunta (120 segundos)
-
-    function startQuiz() {
-        const input = document.getElementById('username').value.trim();
-        if (input === "") {
-            alert("Por favor, ingresa tu nombre para poder registrar tus resultados.");
-            return;
-        }
-        username = input;
-        document.getElementById('welcome-screen').classList.add('hidden');
-        document.getElementById('quiz-screen').classList.remove('hidden');
-        showQuestion();
+const quizData = [
+    {
+        id: 1,
+        question: "1. She _____ at a hospital every day.",
+        options: ["A) works", "B) work", "C) working", "D) is work"],
+        correct: 0,
+        explanations: [
+            "✓ A) works: Con la 3ª persona del singular (He, She, It), agregamos '-s' al verbo.",
+            "✗ B) work: 'Work' sin '-s' solo se usa para I, You, We, They.",
+            "✗ C) working: Requiere verbo auxiliar To Be (presente continuo).",
+            "✗ D) is work: Estructura agramatical (no se combina 'is' con verbo base)."
+        ]
+    },
+    {
+        id: 2,
+        question: "2. They _____ football on Sundays.",
+        options: ["A) doesn't play", "B) don't play", "C) don't plays", "D) not play"],
+        correct: 1,
+        explanations: [
+            "✗ A) doesn't play: 'Doesn't' es exclusivo para He, She, It.",
+            "✓ B) don't play: El sujeto 'They' utiliza 'don't' seguido del verbo base.",
+            "✗ C) don't plays: Con auxiliar 'don't', el verbo principal NO lleva '-s'.",
+            "✗ D) not play: Se requiere el auxiliar obligatoriamente ('don't')."
+        ]
+    },
+    {
+        id: 3,
+        question: "3. _____ he like coffee?",
+        options: ["A) Do", "B) Is", "C) Does", "D) Are"],
+        correct: 2,
+        explanations: [
+            "✗ A) Do: Se usa para I, You, We, They.",
+            "✗ B) Is: Se usaría con verbo To Be o continuo, no con 'like'.",
+            "✓ C) Does: Auxiliar correcto para preguntas con He, She, It.",
+            "✗ D) Are: Auxiliar plural de To Be."
+        ]
+    },
+    {
+        id: 4,
+        question: "4. John _____ English every night.",
+        options: ["A) studys", "B) studies", "C) study", "D) is studys"],
+        correct: 1,
+        explanations: [
+            "✗ A) studys: Error ortográfico; consonante + 'y' cambia a '-ies'.",
+            "✓ B) studies: Cambio correcto de 'y' por '-ies' para 3ª persona.",
+            "✗ C) study: Forma base sin conjugar para John (He).",
+            "✗ D) is studys: Mezcla incorrecta de To Be y verbo conjugado."
+        ]
+    },
+    {
+        id: 5,
+        question: "5. Water _____ at 100 degrees Celsius.",
+        options: ["A) boil", "B) boils", "C) boiling", "D) is boil"],
+        correct: 1,
+        explanations: [
+            "✗ A) boil: Le falta la '-s' necesaria para 'Water' (It).",
+            "✓ B) boils: Sustantivo incontable (It) + regla de hechos universales.",
+            "✗ C) boiling: Gerundio sin auxiliar.",
+            "✗ D) is boil: Mezcla agramatical."
+        ]
+    },
+    {
+        id: 6,
+        question: "6. What time _____ the train leave?",
+        options: ["A) do", "B) does", "C) is", "D) are"],
+        correct: 1,
+        explanations: [
+            "✗ A) do: No concuerda con 'the train' (It).",
+            "✓ B) does: Auxiliar obligatorio para 'the train' (3ª persona singular).",
+            "✗ C) is: Exigiría 'leaving' en vez de 'leave'.",
+            "✗ D) are: Incompatible con sujeto singular."
+        ]
+    },
+    {
+        id: 7,
+        question: "7. My parents _____ in Madrid.",
+        options: ["A) lives", "B) live", "C) living", "D) is live"],
+        correct: 1,
+        explanations: [
+            "✗ A) lives: Solo para singular (He/She/It), no para plural.",
+            "✓ B) live: 'My parents' equivale a 'They' (plural), verbo en forma base.",
+            "✗ C) living: Forma en '-ing'.",
+            "✗ D) is live: Incompatible sujeto y verbo."
+        ]
+    },
+    {
+        id: 8,
+        question: "8. Sarah _____ two brothers.",
+        options: ["A) haves", "B) has", "C) having", "D) is have"],
+        correct: 1,
+        explanations: [
+            "✗ A) haves: Palabra inexistente en inglés.",
+            "✓ B) has: Forma irregular de 'have' para 3ª persona (She).",
+            "✗ C) having: Participio/gerundio.",
+            "✗ D) is have: Construcción agramatical."
+        ]
+    },
+    {
+        id: 9,
+        question: "9. We _____ TV in the morning.",
+        options: ["A) don't watch", "B) doesn't watch", "C) not watch", "D) aren't watch"],
+        correct: 0,
+        explanations: [
+            "✓ A) don't watch: Negación correcta para 'We'.",
+            "✗ B) doesn't watch: 'Doesn't' es solo para He, She, It.",
+            "✗ C) not watch: Falta el auxiliar 'do'.",
+            "✗ D) aren't watch: No se usa To Be con verbo de acción base."
+        ]
+    },
+    {
+        id: 10,
+        question: "10. Where _____ your sister work?",
+        options: ["A) do", "B) does", "C) is", "D) are"],
+        correct: 1,
+        explanations: [
+            "✗ A) do: Se usa para I, You, We, They.",
+            "✓ B) does: Auxiliar para 'your sister' (She).",
+            "✗ C) is: Exigiría 'working'.",
+            "✗ D) are: Error de plural y de tiempo."
+        ]
+    },
+    {
+        id: 11,
+        question: "11. The sun _____ in the east.",
+        options: ["A) rise", "B) rises", "C) rising", "D) riss"],
+        correct: 1,
+        explanations: [
+            "✗ A) rise: Falta la '-s' obligatoria para 'The sun' (It).",
+            "✓ B) rises: Agrega '-s' a la 3ª persona del singular.",
+            "✗ C) rising: Participio sin To Be.",
+            "✗ D) riss: Error de ortografía."
+        ]
+    },
+    {
+        id: 12,
+        question: "12. I usually _____ to bed at 10 PM.",
+        options: ["A) goes", "B) go", "C) going", "D) am go"],
+        correct: 1,
+        explanations: [
+            "✗ A) goes: Exclusivo de He, She, It.",
+            "✓ B) go: Con la primera persona 'I' el verbo va en forma base.",
+            "✗ C) going: Cambia el tiempo a continuo.",
+            "✗ D) am go: Mezcla To Be con verbo base."
+        ]
+    },
+    {
+        id: 13,
+        question: "13. Mark _____ spicy food.",
+        options: ["A) don't likes", "B) doesn't likes", "C) doesn't like", "D) don't like"],
+        correct: 2,
+        explanations: [
+            "✗ A) don't likes: Auxiliar y verbo incorrectos.",
+            "✗ B) doesn't likes: ¡Ojo! Al usar 'doesn't', la '-s' del verbo desaparece.",
+            "✓ C) doesn't like: Auxiliar 'doesn't' + verbo principal en forma base.",
+            "✗ D) don't like: Auxiliar para plural o I/You."
+        ]
+    },
+    {
+        id: 14,
+        question: "14. How often _____ you exercise?",
+        options: ["A) does", "B) do", "C) are", "D) is"],
+        correct: 1,
+        explanations: [
+            "✗ A) does: Solo para He, She, It.",
+            "✓ B) do: Auxiliar correcto para el sujeto 'You'.",
+            "✗ C) are: Exigiría 'exercising'.",
+            "✗ D) is: Incompatible con 'You'."
+        ]
+    },
+    {
+        id: 15,
+        question: "15. The teacher _____ history.",
+        options: ["A) teachs", "B) teaches", "C) teach", "D) teaching"],
+        correct: 1,
+        explanations: [
+            "✗ A) teachs: Falta la 'e'; tras '-ch' se añade '-es'.",
+            "✓ B) teaches: Regla de ortografía: verbos terminados en '-ch' añaden '-es'.",
+            "✗ C) teach: Sin conjugación de 3ª persona.",
+            "✗ D) teaching: Gerundio incompleto."
+        ]
+    },
+    {
+        id: 16,
+        question: "16. Cats _____ mice.",
+        options: ["A) catches", "B) catch", "C) catching", "D) is catch"],
+        correct: 1,
+        explanations: [
+            "✗ A) catches: Solo si fuera un solo gato (The cat catches).",
+            "✓ B) catch: 'Cats' es plural (They), verbo en forma base.",
+            "✗ C) catching: Forma gerundia.",
+            "✗ D) is catch: Error de concordancia y estructura."
+        ]
+    },
+    {
+        id: 17,
+        question: "17. It _____ a lot in winter.",
+        options: ["A) rain", "B) rains", "C) raining", "D) raines"],
+        correct: 1,
+        explanations: [
+            "✗ A) rain: Le falta la '-s' para 'It'.",
+            "✓ B) rains: Añade '-s' para la 3ª persona singular (It).",
+            "✗ C) raining: Participio presente.",
+            "✗ D) raines: Ortografía incorrecta (no lleva 'e')."
+        ]
+    },
+    {
+        id: 18,
+        question: "18. _____ you know the answer?",
+        options: ["A) Does", "B) Are", "C) Do", "D) Is"],
+        correct: 2,
+        explanations: [
+            "✗ A) Does: Solo para He, She, It.",
+            "✗ B) Are: 'Are you know' es un error común; 'know' va con 'Do'.",
+            "✓ C) Do: Auxiliar correcto para 'You'.",
+            "✗ D) Is: Incompatible con 'You'."
+        ]
+    },
+    {
+        id: 19,
+        question: "19. Daniel always _____ his car on Saturdays.",
+        options: ["A) washs", "B) washes", "C) wash", "D) washing"],
+        correct: 1,
+        explanations: [
+            "✗ A) washs: Error ortográfico; tras '-sh' corresponde '-es'.",
+            "✓ B) washes: Terminación '-es' requerida para verbos finalizados en '-sh'.",
+            "✗ C) wash: Sin conjugar para Daniel (He).",
+            "✗ D) washing: Forma continua."
+        ]
+    },
+    {
+        id: 20,
+        question: "20. She never _____ by plane.",
+        options: ["A) flys", "B) flies", "C) fly", "D) flying"],
+        correct: 1,
+        explanations: [
+            "✗ A) flys: Ortografía incorrecta.",
+            "✓ B) flies: 'Fly' cambia 'y' por '-ies' con 'She'. 'Never' no quita la regla.",
+            "✗ C) fly: Forma base sin conjugar.",
+            "✗ D) flying: Gerundio."
+        ]
     }
+];
 
-    function showQuestion() {
-        clearInterval(timerInterval);
-        timeLeft = 120; 
+let currentQuestion = 0;
+let userAnswers = {};
+let timeLeft = 120;
+let timerInterval;
+
+function startTimer() {
+    clearInterval(timerInterval);
+    timeLeft = 120;
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeLeft--;
         updateTimerDisplay();
-
-        if (currentQuestion >= questions.length) {
-            endQuiz();
-            return;
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            // Auto avance opcional o alerta
         }
+    }, 1000);
+}
 
-        document.getElementById('progress').innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
-        
-        let qData = questions[currentQuestion];
-        document.getElementById('question-text').innerText = qData.q;
+function updateTimerDisplay() {
+    const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+    const secs = (timeLeft % 60).toString().padStart(2, '0');
+    document.getElementById('question-timer').textContent = `${mins}:${secs}`;
+}
 
-        let optionsBox = document.getElementById('options-box');
-        optionsBox.innerHTML = "";
+function renderQuiz() {
+    const container = document.getElementById('questions-container');
+    container.innerHTML = quizData.map((q, idx) => `
+        <div class="question-card" id="q-card-${idx}">
+            <div class="question-header">
+                <div class="question-title">${q.question}</div>
+            </div>
+            <div class="options-container">
+                ${q.options.map((opt, optIdx) => `
+                    <button class="option-btn" id="opt-${idx}-${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
+                        ${opt}
+                    </button>
+                `).join('')}
+            </div>
+            <div class="explanation-box" id="exp-${idx}">
+                <div class="explanation-title" id="exp-title-${idx}"></div>
+                <ul class="explanation-list">
+                    ${q.explanations.map(exp => `<li>${exp}</li>`).join('')}
+                </ul>
+            </div>
+        </div>
+    `).join('');
+    startTimer();
+}
 
-        qData.a.forEach((option, index) => {
-            let btn = document.createElement('button');
-            btn.className = "option-btn";
-            btn.innerText = option;
-            btn.onclick = () => selectOption(index);
-            optionsBox.appendChild(btn);
-        });
-
-        timerInterval = setInterval(() => {
-            timeLeft--;
-            updateTimerDisplay();
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                nextQuestion(); // Pasa automáticamente si se acaba el tiempo
-            }
-        }, 1000);
+function selectOption(qIdx, optIdx) {
+    userAnswers[qIdx] = optIdx;
+    
+    // reset visual selection for this question
+    for(let i = 0; i < 4; i++) {
+        const btn = document.getElementById(`opt-${qIdx}-${i}`);
+        btn.classList.remove('selected', 'correct', 'incorrect');
     }
 
-    function updateTimerDisplay() {
-        let minutes = Math.floor(timeLeft / 60);
-        let seconds = timeLeft % 60;
-        document.getElementById('time').innerText = 
-            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-    }
+    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
+    selectedBtn.classList.add('selected');
 
-    function selectOption(index) {
-        clearInterval(timerInterval);
-        if (index === questions[currentQuestion].c) {
+    // Show instant feedback and explanation
+    const q = quizData[qIdx];
+    const expBox = document.getElementById(`exp-${qIdx}`);
+    const expTitle = document.getElementById(`exp-title-${qIdx}`);
+    
+    expBox.classList.add('visible');
+
+    if (optIdx === q.correct) {
+        selectedBtn.classList.add('correct');
+        expTitle.className = "explanation-title correct-text";
+        expTitle.innerHTML = "✨ ¡Respuesta Correcta!";
+    } else {
+        selectedBtn.classList.add('incorrect');
+        document.getElementById(`opt-${qIdx}-${q.correct}`).classList.add('correct');
+        expTitle.className = "explanation-title incorrect-text";
+        expTitle.innerHTML = "❌ Respuesta Incorrecta. Revisa las razones:";
+    }
+}
+
+function finishQuiz() {
+    clearInterval(timerInterval);
+    let score = 0;
+    quizData.forEach((q, idx) => {
+        if (userAnswers[idx] === q.correct) {
             score++;
         }
-        nextQuestion();
-    }
+        // show explanations for all
+        const expBox = document.getElementById(`exp-${idx}`);
+        expBox.classList.add('visible');
+        if (userAnswers[idx] === undefined) {
+            document.getElementById(`opt-${idx}-${q.correct}`).classList.add('correct');
+        }
+    });
 
-    function nextQuestion() {
-        currentQuestion++;
-        showQuestion();
-    }
+    const summaryBox = document.getElementById('results-summary');
+    summaryBox.style.display = 'block';
+    document.getElementById('user-score').textContent = score;
 
-    function endQuiz() {
-        document.getElementById('quiz-screen').classList.add('hidden');
-        document.getElementById('result-screen').classList.remove('hidden');
+    let comment = "";
+    if (score === 20) comment = "🏆 ¡Perfecto! Dominas completamente el Presente Simple.";
+    else if (score >= 15) comment = "👏 ¡Muy bien! Tienes un gran dominio, revisa los pequeños detalles.";
+    else if (score >= 10) comment = "👍 Buen intento. Revisa las reglas de la 3ª persona y los auxiliares.";
+    else comment = "💪 ¡Sigue practicando! Lee atentamente cada explicación para mejorar.";
+    
+    document.getElementById('score-comment').textContent = comment;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-        document.getElementById('feedback-score').innerText = `${username}, tu puntaje final es: ${score} / ${questions.length}`;
-
-        // Configuración del botón de WhatsApp personalizado
-        const phoneNumber = "573244417844"; // Código de país + número provisto
-        const message = `¡Hola! He terminado el Quiz de *Educa Pro+*.\n\n*Nombre:* ${username}\n*Puntaje:* ${score} de 20 correctas.`;
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
-        
-        document.getElementById('ws-link').href = whatsappUrl;
-    }
+window.onload = renderQuiz;
 </script>
 
 </body>
