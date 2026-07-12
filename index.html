@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interactivo de Inglés - 50 Preguntas</title>
+    <title>Quiz Interactivo de Inglés - 60 Preguntas</title>
     <style>
         :root {
             --primary: #0f172a;
@@ -162,7 +162,7 @@
 
 <div class="container">
     <div class="header-card">
-        <h2>Quiz Interactivo - 50 Preguntas</h2>
+        <h2>Quiz Interactivo - 60 Preguntas</h2>
         <p>Selecciona una respuesta para ver la corrección e información explicativa inmediatamente / Select an answer to see immediate feedback.</p>
     </div>
 
@@ -175,7 +175,7 @@
 
     <div id="results-summary">
         <h2>🎉 Puntuación Final</h2>
-        <div class="score-display"><span id="user-score">0</span> / 50</div>
+        <div class="score-display"><span id="user-score">0</span> / 60</div>
         <p id="score-comment"></p>
         <button class="btn" onclick="location.reload()">🔄 Reiniciar Quiz</button>
     </div>
@@ -234,7 +234,19 @@ const questions = [
     { q: "47. He never _____ his room on weekends.", opts: ["A) clean", "B) cleans", "C) cleaning", "D) is clean"], c: 1, exp: "cleans: Se añade '-s' para 'He' en presente simple / Present simple 3rd person." },
     { q: "48. How much money did you _____ on that jacket?", opts: ["A) spent", "B) spend", "C) spending", "D) spends"], c: 1, exp: "spend: Forma base tras el auxiliar 'did' / Base form verb after did." },
     { q: "49. I didn't _____ that you were coming today.", opts: ["A) knew", "B) know", "C) known", "D) knowing"], c: 1, exp: "know: Forma base tras el auxiliar 'didn't' / Base form verb after didn't." },
-    { q: "50. _____ it rain heavily last Sunday?", opts: ["A) Does", "B) Did", "C) Is", "D) Was"], c: 1, exp: "Did: Auxiliar de pasado simple para preguntar '¿Llovió...?' / Past simple auxiliary." }
+    { q: "50. _____ it rain heavily last Sunday?", opts: ["A) Does", "B) Did", "C) Is", "D) Was"], c: 1, exp: "Did: Auxiliar de pasado simple para preguntar '¿Llovió...?' / Past simple auxiliary." },
+    
+    /* PREGUNTAS WH- ADICIONALES (51 - 60) */
+    { q: "51. _____ is your best friend? - Sarah is my best friend.", opts: ["A) What", "B) Where", "C) Who", "D) Why"], c: 2, exp: "Who: Se usa para preguntar por personas / Used to ask about people." },
+    { q: "52. _____ do you live? - I live in Colombia.", opts: ["A) Where", "B) When", "C) Who", "D) Which"], c: 0, exp: "Where: Se usa para preguntar por lugares o ubicación / Used to ask about places." },
+    { q: "53. _____ is your birthday? - It is in July.", opts: ["A) Where", "B) When", "C) What", "D) Why"], c: 1, exp: "When: Se usa para preguntar por fechas o momentos en el tiempo / Used to ask about time." },
+    { q: "54. _____ are you crying? - Because I lost my wallet.", opts: ["A) What", "B) How", "C) Why", "D) Who"], c: 2, exp: "Why: Se usa para preguntar la razón o motivo (se responde con 'because') / Used to ask for reasons." },
+    { q: "55. _____ color do you prefer, red or blue?", opts: ["A) Which", "B) Who", "C) Where", "D) When"], c: 0, exp: "Which: Se usa para elegir entre un número limitado de opciones / Used when choosing between options." },
+    { q: "56. _____ old are you? - I am 20 years old.", opts: ["A) What", "B) How", "C) Who", "D) Why"], c: 1, exp: "How: Se combina con 'old' para preguntar la edad / Used with 'old' to ask for age." },
+    { q: "57. _____ is your favorite book?", opts: ["A) Who", "B) What", "C) Where", "D) When"], c: 1, exp: "What: Se usa para preguntar por cosas o información general / Used to ask for information about things." },
+    { q: "58. _____ did you get to the office this morning? - By bus.", opts: ["A) How", "B) Why", "C) Who", "D) What"], c: 0, exp: "How: Se usa para preguntar por el modo, forma o medio de transporte / Used to ask for manner or means." },
+    { q: "59. _____ money do you need for the bus?", opts: ["A) How many", "B) How much", "C) What many", "D) Which much"], c: 1, exp: "How much: Se usa para preguntar cantidades incontables como el dinero / Used for uncountable amounts." },
+    { q: "60. _____ books did you read last month?", opts: ["A) How much", "B) How many", "C) Where", "D) Who"], c: 1, exp: "How many: Se usa para preguntar cantidades contables en plural / Used for countable plural nouns." }
 ];
 
 let userAnswers = {};
@@ -319,9 +331,9 @@ function finishQuiz() {
     document.getElementById('user-score').textContent = score;
 
     let comment = "";
-    if (score === 50) comment = "🏆 ¡Perfecto! Dominas totalmente todos los temas.";
-    else if (score >= 40) comment = "👏 ¡Excelente trabajo! Tienes un gran nivel.";
-    else if (score >= 25) comment = "👍 ¡Buen esfuerzo! Lee las explicaciones para seguir mejorando.";
+    if (score === 60) comment = "🏆 ¡Perfecto! Dominas totalmente todos los temas.";
+    else if (score >= 48) comment = "👏 ¡Excelente trabajo! Tienes un gran nivel.";
+    else if (score >= 30) comment = "👍 ¡Buen esfuerzo! Lee las explicaciones para seguir mejorando.";
     else comment = "💪 ¡A seguir practicando! Revisa las correcciones marcadas en verde.";
     
     document.getElementById('score-comment').textContent = comment;
