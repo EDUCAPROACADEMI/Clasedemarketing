@@ -1,347 +1,176 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Interactivo de Inglés - 60 Preguntas</title>
-    <style>
-        :root {
-            --primary: #0f172a;
-            --primary-light: #2563eb;
-            --bg: #f8fafc;
-            --card-bg: #ffffff;
-            --text: #1e293b;
-            --border: #e2e8f0;
-            --success: #059669;
-            --danger: #dc2626;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
+<title>Active & Passive Voice Game</title>
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+<link rel="stylesheet" href="style.css">
 
-        .header-card {
-            background: linear-gradient(135deg, #0f172a, #2563eb);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .controls-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            padding: 15px 20px;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            margin-bottom: 25px;
-            position: sticky;
-            top: 10px;
-            z-index: 100;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .timer-box {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: #1e40af;
-        }
-
-        .badge {
-            background: #dbeafe;
-            color: #1e40af;
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-
-        .btn {
-            background-color: var(--primary-light);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .question-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .question-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .options-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-        }
-
-        .option-btn {
-            background: #f1f5f9;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 12px 15px;
-            text-align: left;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            width: 100%;
-        }
-
-        .option-btn:hover {
-            border-color: var(--primary-light);
-            background: #eff6ff;
-        }
-
-        .option-btn.correct {
-            background: #d1fae5 !important;
-            border-color: var(--success) !important;
-            color: #065f46;
-            font-weight: bold;
-        }
-
-        .option-btn.incorrect {
-            background: #fee2e2 !important;
-            border-color: var(--danger) !important;
-            color: #991b1b;
-        }
-
-        .explanation-box {
-            display: none;
-            background: #f8fafc;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 15px;
-            font-size: 0.95rem;
-        }
-
-        .explanation-box.visible {
-            display: block;
-        }
-
-        #results-summary {
-            display: none;
-            background: white;
-            border-radius: 12px;
-            border: 2px solid var(--primary-light);
-            padding: 25px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .score-display {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #1e40af;
-        }
-    </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header-card">
-        <h2>Quiz Interactivo - 60 Preguntas</h2>
-        <p>Selecciona una respuesta para ver la corrección e información explicativa inmediatamente / Select an answer to see immediate feedback.</p>
-    </div>
 
-    <div class="controls-bar">
-        <div class="timer-box">
-            ⏱️ Tiempo restante: <span id="question-timer" class="badge">02:00</span>
-        </div>
-        <button class="btn" onclick="finishQuiz()">📊 Ver Resultado Final</button>
-    </div>
+<h1>🎓 Aprende Active & Passive Voice</h1>
 
-    <div id="results-summary">
-        <h2>🎉 Puntuación Final</h2>
-        <div class="score-display"><span id="user-score">0</span> / 60</div>
-        <p id="score-comment"></p>
-        <button class="btn" onclick="location.reload()">🔄 Reiniciar Quiz</button>
-    </div>
+<div id="menu">
 
-    <div id="questions-container"></div>
+<button onclick="mostrarAprender()">
+📚 Aprender
+</button>
+
+<button onclick="iniciarJuego()">
+🎮 Jugar
+</button>
+
 </div>
 
-<script>
-const questions = [
-    { q: "1. _____ you watch the movie last night?", opts: ["A) Did", "B) Do", "C) Does", "D) Were"], c: 0, exp: "Did: Auxiliar de pasado simple para hacer preguntas en pasado / Past simple question auxiliary." },
-    { q: "2. She has already _____ her homework.", opts: ["A) finish", "B) finished", "C) finishing", "D) finishes"], c: 1, exp: "finished: Participio pasado del verbo regular finish (-ed) / Past participle of regular verb." },
-    { q: "3. My brother _____ in a bank.", opts: ["A) work", "B) works", "C) working", "D) is work"], c: 1, exp: "works: Presente simple en 3ª persona (He) / Present simple 3rd person singular." },
-    { q: "4. Look! It _____ right now.", opts: ["A) rains", "B) is raining", "C) rain", "D) is rain"], c: 1, exp: "is raining: Presente continuo para una acción en progreso / Action in progress." },
-    { q: "5. She _____ not come to the party yesterday.", opts: ["A) did", "B) does", "C) do", "D) was"], c: 0, exp: "did: Se usa 'did not' (didn't) para negar en pasado simple / Past simple negative auxiliary." },
-    { q: "6. They have _____ in London for three years.", opts: ["A) lived", "B) live", "C) living", "D) lives"], c: 0, exp: "lived: Participio pasado del verbo terminado en -e (-d) / Past participle ending in -d." },
-    { q: "7. They _____ like spicy food.", opts: ["A) doesn't", "B) don't", "C) aren't", "D) not"], c: 1, exp: "don't: Negación en presente simple para They / Present simple negative for They." },
-    { q: "8. They _____ TV at the moment.", opts: ["A) watch", "B) are watching", "C) is watching", "D) watches"], c: 1, exp: "are watching: Presente continuo con 'are' para They / Present continuous for They." },
-    { q: "9. Where _____ they go for their summer vacation?", opts: ["A) do", "B) did", "C) are", "D) have"], c: 1, exp: "did: Auxiliar pasado para acción terminada / Past simple question auxiliary." },
-    { q: "10. Have you ever _____ a sports car?", opts: ["A) drive", "B) drove", "C) driven", "D) driving"], c: 2, exp: "driven: Participio pasado irregular de 'drive' / Irregular past participle of drive." },
-    { q: "11. _____ she speak French fluently?", opts: ["A) Do", "B) Is", "C) Does", "D) Are"], c: 2, exp: "Does: Auxiliar interrogativo en presente simple para She / Present simple question auxiliary." },
-    { q: "12. Listen! Someone _____ the piano.", opts: ["A) plays", "B) is playing", "C) play", "D) are playing"], c: 1, exp: "is playing: Presente continuo para acción al instante / Action happening now." },
-    { q: "13. I didn't _____ my keys in the office.", opts: ["A) lost", "B) lose", "C) losing", "D) loses"], c: 1, exp: "lose: Tras el auxiliar 'didn't', el verbo vuelve a su forma base / Base form verb after didn't." },
-    { q: "14. He has _____ all the emails this morning.", opts: ["A) wrote", "B) written", "C) write", "D) writing"], c: 1, exp: "written: Participio pasado irregular de 'write' / Irregular past participle of write." },
-    { q: "15. Water _____ at 0 degrees Celsius.", opts: ["A) freezes", "B) freeze", "C) freezing", "D) is freeze"], c: 0, exp: "freezes: Verdades universales en presente simple (It) / Universal facts in present simple." },
-    { q: "16. What _____ you doing right now?", opts: ["A) do", "B) are", "C) is", "D) does"], c: 1, exp: "are: Verbo To Be para 'you' en presente continuo / To Be auxiliary for you." },
-    { q: "17. Why did you _____ your phone number?", opts: ["A) changed", "B) change", "C) changing", "D) changes"], c: 1, exp: "change: Forma base del verbo tras el auxiliar 'did' / Base form verb after did." },
-    { q: "18. The door was _____ by the security guard.", opts: ["A) close", "B) closing", "C) closed", "D) closes"], c: 2, exp: "closed: Participio pasado del verbo regular 'close' / Past participle of regular verb." },
-    { q: "19. I usually _____ coffee in the morning.", opts: ["A) drinks", "B) drink", "C) drinking", "D) am drink"], c: 1, exp: "drink: Rutinas en presente simple con 'I' / Routine in present simple with I." },
-    { q: "20. I _____ for my English test today.", opts: ["A) am studying", "B) study", "C) is studying", "D) studies"], c: 0, exp: "am studying: Presente continuo [I + am + -ing] / Present continuous for I." },
-    { q: "21. They didn't _____ the soccer match.", opts: ["A) win", "B) won", "C) winning", "D) wins"], c: 0, exp: "win: Forma base tras la negación 'didn't' / Base form verb after didn't." },
-    { q: "22. I have never _____ to Japan.", opts: ["A) be", "B) been", "C) was", "D) being"], c: 1, exp: "been: Participio pasado irregular del verbo To Be / Irregular past participle of To Be." },
-    { q: "23. The train _____ at 8:00 AM every day.", opts: ["A) leave", "B) leaves", "C) leaving", "D) is leave"], c: 1, exp: "leaves: Presente simple para horarios (It) / Present simple for timetables." },
-    { q: "24. She _____ sleeping; she is reading a book.", opts: ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], c: 0, exp: "isn't: Negación del presente continuo para 'She' / Negative present continuous for She." },
-    { q: "25. _____ he finish his project on time?", opts: ["A) Does", "B) Did", "C) Is", "D) Has"], c: 1, exp: "Did: Auxiliar en pasado para '¿Él terminó...?' / Past simple question auxiliary." },
-    { q: "26. We have _____ all our luggage.", opts: ["A) packed", "B) pack", "C) packing", "D) packs"], c: 0, exp: "packed: Participio pasado regular (-ed) / Past participle of regular verb." },
-    { q: "27. We _____ go to the beach in winter.", opts: ["A) doesn't", "B) don't", "C) aren't", "D) not"], c: 1, exp: "don't: Negación en presente simple para 'We' / Present simple negative for We." },
-    { q: "28. Why _____ they running so fast?", opts: ["A) do", "B) is", "C) are", "D) does"], c: 2, exp: "are: Auxiliar To Be correcto para 'they' / Present continuous auxiliary for they." },
-    { q: "29. We didn't _____ breakfast this morning.", opts: ["A) ate", "B) eat", "C) eaten", "D) eating"], c: 1, exp: "eat: Forma base obligatoria tras 'didn't' / Base form verb after didn't." },
-    { q: "30. Has she _____ her keys again?", opts: ["A) lose", "B) lost", "C) losing", "D) loosed"], c: 1, exp: "lost: Participio pasado irregular de 'lose' / Irregular past participle of lose." },
-    { q: "31. How often _____ you go to the gym?", opts: ["A) do", "B) does", "C) are", "D) is"], c: 0, exp: "do: Auxiliar en presente simple para 'you' / Present simple question auxiliary." },
-    { q: "32. We _____ dinner together tonight.", opts: ["A) are having", "B) have", "C) has", "D) is having"], c: 0, exp: "are having: Presente continuo para planes cercanos / Present continuous for plans." },
-    { q: "33. What time did the train _____?", opts: ["A) arrived", "B) arrive", "C) arrives", "D) arriving"], c: 1, exp: "arrive: Forma base correcta tras el auxiliar 'did' / Base form verb after did." },
-    { q: "34. The cake was _____ by my grandmother.", opts: ["A) make", "B) maked", "C) made", "D) making"], c: 2, exp: "made: Participio pasado irregular de 'make' / Irregular past participle of make." },
-    { q: "35. She _____ hard for her exams.", opts: ["A) study", "B) studys", "C) studies", "D) is study"], c: 2, exp: "studies: Cambia 'y' por '-ies' en 3ª persona / Present simple spelling rule." },
-    { q: "36. The baby _____ in her crib right now.", opts: ["A) sleeps", "B) is sleeping", "C) sleep", "D) are sleeping"], c: 1, exp: "is sleeping: Presente continuo para el momento actual / Action in progress." },
-    { q: "37. He didn't _____ any answer to my letter.", opts: ["A) sent", "B) send", "C) sending", "D) sends"], c: 1, exp: "send: Forma base tras el auxiliar 'didn't' / Base form verb after didn't." },
-    { q: "38. The room has been _____ thoroughly.", opts: ["A) cleaned", "B) clean", "C) cleaning", "D) cleans"], c: 0, exp: "cleaned: Participio pasado regular (-ed) / Past participle of regular verb." },
-    { q: "39. My parents _____ in a big house.", opts: ["A) live", "B) lives", "C) living", "D) is live"], c: 0, exp: "live: Verbo en forma base para plural 'They' / Present simple for plural subject." },
-    { q: "40. He _____ wearing a coat today because it's hot.", opts: ["A) isn't", "B) doesn't", "C) don't", "D) aren't"], c: 0, exp: "isn't: Negación del presente continuo [He + isn't + wearing] / Negative continuous." },
-    { q: "41. _____ you call me earlier?", opts: ["A) Did", "B) Do", "C) Are", "D) Have"], c: 0, exp: "Did: Auxiliar pasado para preguntar '¿Llamaste...?' / Past simple question auxiliary." },
-    { q: "42. The song was _____ by a famous band.", opts: ["A) sang", "B) sung", "C) sing", "D) singing"], c: 1, exp: "sung: Participio pasado irregular del verbo 'sing' / Irregular past participle of sing." },
-    { q: "43. Cats _____ milk.", opts: ["A) likes", "B) like", "C) is liking", "D) liking"], c: 1, exp: "like: Verbo en forma base para plural 'Cats' / Present simple for plural subject." },
-    { q: "44. Shh! The teacher _____ to the class.", opts: ["A) talks", "B) is talking", "C) talk", "D) are talking"], c: 1, exp: "is talking: Acción que está ocurriendo ahora / Action happening now." },
-    { q: "45. The students didn't _____ the teacher's instructions.", opts: ["A) understood", "B) understand", "C) understanding", "D) understands"], c: 1, exp: "understand: Forma base tras el auxiliar 'didn't' / Base form verb after didn't." },
-    { q: "46. All the windows were _____ during the storm.", opts: ["A) broke", "B) broken", "C) break", "D) breaking"], c: 1, exp: "broken: Participio pasado irregular del verbo 'break' / Irregular past participle." },
-    { q: "47. He never _____ his room on weekends.", opts: ["A) clean", "B) cleans", "C) cleaning", "D) is clean"], c: 1, exp: "cleans: Se añade '-s' para 'He' en presente simple / Present simple 3rd person." },
-    { q: "48. How much money did you _____ on that jacket?", opts: ["A) spent", "B) spend", "C) spending", "D) spends"], c: 1, exp: "spend: Forma base tras el auxiliar 'did' / Base form verb after did." },
-    { q: "49. I didn't _____ that you were coming today.", opts: ["A) knew", "B) know", "C) known", "D) knowing"], c: 1, exp: "know: Forma base tras el auxiliar 'didn't' / Base form verb after didn't." },
-    { q: "50. _____ it rain heavily last Sunday?", opts: ["A) Does", "B) Did", "C) Is", "D) Was"], c: 1, exp: "Did: Auxiliar de pasado simple para preguntar '¿Llovió...?' / Past simple auxiliary." },
-    
-    /* PREGUNTAS WH- ADICIONALES (51 - 60) */
-    { q: "51. _____ is your best friend? - Sarah is my best friend.", opts: ["A) What", "B) Where", "C) Who", "D) Why"], c: 2, exp: "Who: Se usa para preguntar por personas / Used to ask about people." },
-    { q: "52. _____ do you live? - I live in Colombia.", opts: ["A) Where", "B) When", "C) Who", "D) Which"], c: 0, exp: "Where: Se usa para preguntar por lugares o ubicación / Used to ask about places." },
-    { q: "53. _____ is your birthday? - It is in July.", opts: ["A) Where", "B) When", "C) What", "D) Why"], c: 1, exp: "When: Se usa para preguntar por fechas o momentos en el tiempo / Used to ask about time." },
-    { q: "54. _____ are you crying? - Because I lost my wallet.", opts: ["A) What", "B) How", "C) Why", "D) Who"], c: 2, exp: "Why: Se usa para preguntar la razón o motivo (se responde con 'because') / Used to ask for reasons." },
-    { q: "55. _____ color do you prefer, red or blue?", opts: ["A) Which", "B) Who", "C) Where", "D) When"], c: 0, exp: "Which: Se usa para elegir entre un número limitado de opciones / Used when choosing between options." },
-    { q: "56. _____ old are you? - I am 20 years old.", opts: ["A) What", "B) How", "C) Who", "D) Why"], c: 1, exp: "How: Se combina con 'old' para preguntar la edad / Used with 'old' to ask for age." },
-    { q: "57. _____ is your favorite book?", opts: ["A) Who", "B) What", "C) Where", "D) When"], c: 1, exp: "What: Se usa para preguntar por cosas o información general / Used to ask for information about things." },
-    { q: "58. _____ did you get to the office this morning? - By bus.", opts: ["A) How", "B) Why", "C) Who", "D) What"], c: 0, exp: "How: Se usa para preguntar por el modo, forma o medio de transporte / Used to ask for manner or means." },
-    { q: "59. _____ money do you need for the bus?", opts: ["A) How many", "B) How much", "C) What many", "D) Which much"], c: 1, exp: "How much: Se usa para preguntar cantidades incontables como el dinero / Used for uncountable amounts." },
-    { q: "60. _____ books did you read last month?", opts: ["A) How much", "B) How many", "C) Where", "D) Who"], c: 1, exp: "How many: Se usa para preguntar cantidades contables en plural / Used for countable plural nouns." }
-];
+<div id="aprendizaje" class="oculto">
 
-let userAnswers = {};
-let timeLeft = 120; // 2 minutos (120 segundos)
-let timerInterval;
+<h2>📚 Voz Activa / Active Voice</h2>
 
-function startTimer() {
-    clearInterval(timerInterval);
-    timeLeft = 120;
-    updateTimerDisplay();
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        updateTimerDisplay();
-        if (timeLeft <= 0) {
-            clearInterval(timerInterval);
-            alert("⏰ ¡Se agotó el tiempo para responder!");
-        }
-    }, 1000);
-}
+<p>
 
-function updateTimerDisplay() {
-    const mins = Math.floor(timeLeft / 60).toString().padStart(2, '0');
-    const secs = (timeLeft % 60).toString().padStart(2, '0');
-    document.getElementById('question-timer').textContent = `${mins}:${secs}`;
-}
+<b>🇪🇸 Español</b><br><br>
 
-function renderQuiz() {
-    const container = document.getElementById('questions-container');
-    container.innerHTML = questions.map((q, idx) => `
-        <div class="question-card" id="q-card-${idx}">
-            <div class="question-title">${q.q}</div>
-            <div class="options-container">
-                ${q.opts.map((opt, optIdx) => `
-                    <button class="option-btn" id="opt-${idx}-${optIdx}" onclick="selectOption(${idx}, ${optIdx})">
-                        ${opt}
-                    </button>
-                `).join('')}
-            </div>
-            <div class="explanation-box" id="exp-${idx}">
-                <strong>Explicación / Explanation:</strong> ${q.exp}
-            </div>
-        </div>
-    `).join('');
-    startTimer();
-}
+La voz activa ocurre cuando el sujeto realiza la acción.
 
-function selectOption(qIdx, optIdx) {
-    userAnswers[qIdx] = optIdx;
-    const q = questions[qIdx];
-    
-    // Reset buttons in question
-    for(let i = 0; i < 4; i++) {
-        const btn = document.getElementById(`opt-${qIdx}-${i}`);
-        btn.classList.remove('correct', 'incorrect');
-    }
+</p>
 
-    const selectedBtn = document.getElementById(`opt-${qIdx}-${optIdx}`);
-    const expBox = document.getElementById(`exp-${qIdx}`);
-    
-    expBox.classList.add('visible');
+<p>
 
-    if (optIdx === q.c) {
-        selectedBtn.classList.add('correct');
-    } else {
-        selectedBtn.classList.add('incorrect');
-        document.getElementById(`opt-${qIdx}-${q.c}`).classList.add('correct');
-    }
-}
+Ejemplo:
 
-function finishQuiz() {
-    clearInterval(timerInterval);
-    let score = 0;
-    questions.forEach((q, idx) => {
-        if (userAnswers[idx] === q.c) {
-            score++;
-        }
-        document.getElementById(`exp-${idx}`).classList.add('visible');
-    });
+</p>
 
-    const summaryBox = document.getElementById('results-summary');
-    summaryBox.style.display = 'block';
-    document.getElementById('user-score').textContent = score;
+<div class="ejemplo">
 
-    let comment = "";
-    if (score === 60) comment = "🏆 ¡Perfecto! Dominas totalmente todos los temas.";
-    else if (score >= 48) comment = "👏 ¡Excelente trabajo! Tienes un gran nivel.";
-    else if (score >= 30) comment = "👍 ¡Buen esfuerzo! Lee las explicaciones para seguir mejorando.";
-    else comment = "💪 ¡A seguir practicando! Revisa las correcciones marcadas en verde.";
-    
-    document.getElementById('score-comment').textContent = comment;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+Juan eats an apple.
 
-window.onload = renderQuiz;
-</script>
+<br>
+
+Juan come una manzana.
+
+</div>
+
+<hr>
+
+<p>
+
+<b>🇺🇸 English</b><br><br>
+
+The active voice is used when the subject performs the action.
+
+</p>
+
+<div class="ejemplo">
+
+Juan eats an apple.
+
+</div>
+
+<hr>
+
+<h2>📚 Voz Pasiva / Passive Voice</h2>
+
+<p>
+
+<b>🇪🇸 Español</b><br><br>
+
+La voz pasiva ocurre cuando el sujeto recibe la acción.
+
+</p>
+
+<div class="ejemplo">
+
+An apple is eaten by Juan.
+
+<br>
+
+Una manzana es comida por Juan.
+
+</div>
+
+<hr>
+
+<p>
+
+<b>🇺🇸 English</b><br><br>
+
+The passive voice is used when the subject receives the action.
+
+</p>
+
+<div class="ejemplo">
+
+An apple is eaten by Juan.
+
+</div>
+
+<hr>
+
+<h2>📝 Fórmula</h2>
+
+<div class="formula">
+
+Objeto + verbo TO BE + Participio + BY + Sujeto
+
+</div>
+
+<br>
+
+<button onclick="volverMenu()">
+
+⬅ Volver
+
+</button>
+
+</div>
+
+<div id="juego" class="oculto">
+
+<h2 id="tema"></h2>
+
+<div class="barra">
+
+<div id="progreso"></div>
+
+</div>
+
+<h3 id="pregunta"></h3>
+
+<div id="opciones"></div>
+
+<div id="respuesta"></div>
+
+<button id="siguiente" onclick="siguientePregunta()">
+
+Siguiente →
+
+</button>
+
+</div>
+
+<div id="final" class="oculto">
+
+<h1>🎉 Juego terminado</h1>
+
+<h2 id="resultadoFinal"></h2>
+
+<button onclick="location.reload()">
+
+🔄 Volver a jugar
+
+</button>
+
+</div>
+
+</div>
+
+<script src="preguntas.js"></script>
+<script src="script.js"></script>
 
 </body>
 </html>
