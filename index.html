@@ -1,176 +1,240 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Active & Passive Voice Game</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Master Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
-
-<h1>🎓 Aprende Active & Passive Voice</h1>
-
-<div id="menu">
-
-<button onclick="mostrarAprender()">
-📚 Aprender
-</button>
-
-<button onclick="iniciarJuego()">
-🎮 Jugar
-</button>
-
-</div>
-
-<div id="aprendizaje" class="oculto">
-
-<h2>📚 Voz Activa / Active Voice</h2>
-
-<p>
-
-<b>🇪🇸 Español</b><br><br>
-
-La voz activa ocurre cuando el sujeto realiza la acción.
-
-</p>
-
-<p>
-
-Ejemplo:
-
-</p>
-
-<div class="ejemplo">
-
-Juan eats an apple.
-
-<br>
-
-Juan come una manzana.
-
-</div>
-
-<hr>
-
-<p>
-
-<b>🇺🇸 English</b><br><br>
-
-The active voice is used when the subject performs the action.
-
-</p>
-
-<div class="ejemplo">
-
-Juan eats an apple.
-
-</div>
-
-<hr>
-
-<h2>📚 Voz Pasiva / Passive Voice</h2>
-
-<p>
-
-<b>🇪🇸 Español</b><br><br>
-
-La voz pasiva ocurre cuando el sujeto recibe la acción.
-
-</p>
-
-<div class="ejemplo">
-
-An apple is eaten by Juan.
-
-<br>
-
-Una manzana es comida por Juan.
-
-</div>
-
-<hr>
-
-<p>
-
-<b>🇺🇸 English</b><br><br>
-
-The passive voice is used when the subject receives the action.
-
-</p>
-
-<div class="ejemplo">
-
-An apple is eaten by Juan.
-
-</div>
-
-<hr>
-
-<h2>📝 Fórmula</h2>
-
-<div class="formula">
-
-Objeto + verbo TO BE + Participio + BY + Sujeto
-
-</div>
-
-<br>
-
-<button onclick="volverMenu()">
-
-⬅ Volver
-
-</button>
-
-</div>
-
-<div id="juego" class="oculto">
-
-<h2 id="tema"></h2>
-
-<div class="barra">
-
-<div id="progreso"></div>
-
-</div>
-
-<h3 id="pregunta"></h3>
-
-<div id="opciones"></div>
-
-<div id="respuesta"></div>
-
-<button id="siguiente" onclick="siguientePregunta()">
-
-Siguiente →
-
-</button>
-
-</div>
-
-<div id="final" class="oculto">
-
-<h1>🎉 Juego terminado</h1>
-
-<h2 id="resultadoFinal"></h2>
-
-<button onclick="location.reload()">
-
-🔄 Volver a jugar
-
-</button>
-
-</div>
-
-</div>
-
-<script src="preguntas.js"></script>
-<script src="script.js"></script>
-
+    <div id="sidebar">
+        <div class="logo">
+            <h1>🇺🇸</h1>
+            <h2>English Master Pro</h2>
+        </div>
+        <button class="menuButton active" data-page="home">🏠 Inicio</button>
+        <button class="menuButton" data-page="course">📚 Curso</button>
+        <button class="menuButton" data-page="practice">🎮 Práctica</button>
+        <button class="menuButton" data-page="exam">📝 Examen</button>
+        <button class="menuButton" data-page="progress">🏆 Progreso</button>
+        <button class="menuButton" data-page="settings">⚙ Configuración</button>
+        <button class="menuButton" data-page="about">ℹ Acerca de</button>
+    </div>
+
+    <div id="content">
+
+        <div id="dashboard">
+            <div class="dashCard">
+                <span>👤</span>
+                <div>
+                    <small>Estudiante</small>
+                    <h3 id="studentName">Invitado</h3>
+                    <button id="changeName" class="miniButton">✏ Cambiar nombre</button>
+                </div>
+            </div>
+            <div class="dashCard">
+                <span>⭐</span>
+                <div>
+                    <small>Nivel</small>
+                    <h3 id="level">1</h3>
+                </div>
+            </div>
+            <div class="dashCard">
+                <span>🏆</span>
+                <div>
+                    <small>XP</small>
+                    <h3 id="xp">0</h3>
+                </div>
+            </div>
+            <div class="dashCard">
+                <span>🔥</span>
+                <div>
+                    <small>Racha</small>
+                    <h3 id="streak">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="xpBar">
+            <div id="xpProgress"></div>
+        </div>
+
+        <section class="page active" id="home">
+            <div class="welcome">
+                <h1>Bienvenido a English Master Pro</h1>
+                <p>Aprende gramática inglesa desde cero de forma interactiva.</p>
+                <button id="startCourse">Comenzar Curso</button>
+            </div>
+        </section>
+
+        <section class="page" id="course">
+            <h1>Curso Completo</h1>
+            <div id="modules">
+                <div class="module">
+                    <h2>Módulo 1</h2>
+                    <p>Basic Sentences</p>
+                    <button onclick="openModule(1)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 2</h2>
+                    <p>Present Simple</p>
+                    <button onclick="openModule(2)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 3</h2>
+                    <p>Present Continuous</p>
+                    <button onclick="openModule(3)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 4</h2>
+                    <p>Future Will</p>
+                    <button onclick="openModule(4)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 5</h2>
+                    <p>Going To</p>
+                    <button onclick="openModule(5)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 6</h2>
+                    <p>Future Continuous</p>
+                    <button onclick="openModule(6)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 7</h2>
+                    <p>Modal Verbs</p>
+                    <button onclick="openModule(7)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 8</h2>
+                    <p>Active Voice</p>
+                    <button onclick="openModule(8)">Entrar</button>
+                </div>
+                <div class="module">
+                    <h2>Módulo 9</h2>
+                    <p>Passive Voice</p>
+                    <button onclick="openModule(9)">Entrar</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="lesson">
+            <h1 id="lessonTitle">Título de Lección</h1>
+            <div id="lessonContent">
+                </div>
+            <button id="nextLesson">Siguiente ➜</button>
+        </section>
+
+        <section class="page" id="difficulty-selection">
+            <h1>🎯 Elige tu dificultad</h1>
+            <p style="color: #64748b; margin-bottom: 30px;">Pon a prueba lo aprendido seleccionando el nivel del cuestionario:</p>
+            
+            <div class="difficulty-grid">
+                <div class="difficulty-card card-easy" onclick="comenzarQuiz('facil')">
+                    <div class="difficulty-icon">🌱</div>
+                    <h3>Fácil</h3>
+                    <p>25 Preguntas</p>
+                    <span class="difficulty-badge">Básico</span>
+                </div>
+                <div class="difficulty-card card-medium" onclick="comenzarQuiz('medio')">
+                    <div class="difficulty-icon">⚡</div>
+                    <h3>Medio</h3>
+                    <p>25 Preguntas</p>
+                    <span class="difficulty-badge">Intermedio</span>
+                </div>
+                <div class="difficulty-card card-hard" onclick="comenzarQuiz('dificil')">
+                    <div class="difficulty-icon">🔥</div>
+                    <h3>Difícil</h3>
+                    <p>25 Preguntas</p>
+                    <span class="difficulty-badge">Avanzado</span>
+                </div>
+                <div class="difficulty-card card-extreme" onclick="comenzarQuiz('extremo')">
+                    <div class="difficulty-icon">💀</div>
+                    <h3>Extremo</h3>
+                    <p>25 Preguntas</p>
+                    <span class="difficulty-badge">Experto</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="quiz-page">
+            <div class="quiz-header">
+                <span id="quiz-progress-text">Pregunta 1 de 25</span>
+                <div class="quiz-bar"><div id="quiz-bar-progress"></div></div>
+            </div>
+            <h2 id="quiz-question">Aquí irá la pregunta</h2>
+            <div id="quiz-options">
+                </div>
+            <div id="quiz-feedback" class="feedback-box hidden">
+                <p id="feedback-text"></p>
+                <button id="next-question-btn" class="miniButton" onclick="siguientePregunta()">Continuar</button>
+            </div>
+        </section>
+
+        <section class="page" id="quiz-results">
+            <div class="results-container">
+                <span class="results-icon">🎉</span>
+                <h2>¡Cuestionario Completado!</h2>
+                <p id="results-score">Puntaje: 0 / 25</p>
+                <p id="results-xp">+0 XP ganados</p>
+                <button onclick="showPage('course')" class="miniButton">Volver al Curso</button>
+            </div>
+        </section>
+
+        <section class="page" id="practice">
+            <h1>Práctica</h1>
+            <div id="practiceContainer">No hay prácticas adicionales disponibles en este momento.</div>
+        </section>
+
+        <section class="page" id="exam">
+            <h1>Examen Final</h1>
+            <div id="examContainer">El examen estará disponible al completar todos los módulos.</div>
+        </section>
+
+        <section class="page" id="progress">
+            <h1>Tu progreso</h1>
+            <div class="stats">
+                <div class="card">
+                    <h2>Módulos</h2>
+                    <h3 id="stat-modules">0 / 9</h3>
+                </div>
+                <div class="card">
+                    <h2>XP Totales</h2>
+                    <h3 id="stat-xp">0 XP</h3>
+                </div>
+            </div>
+        </section>
+
+        <section class="page" id="settings">
+            <h1>Configuración</h1>
+            <label>
+                <input type="checkbox" id="darkModeToggle"> Modo Oscuro
+            </label>
+        </section>
+
+        <section class="page" id="about">
+            <h1>English Master Pro</h1>
+            <p>Aplicación creada para aprender inglés paso a paso.</p>
+            <p>Hecho con HTML, CSS y JavaScript.</p>
+        </section>
+
+    </div>
+
+    <script>window.modules = {};</script>
+    <script src="modules/basic.js"></script>
+    <script src="modules/presentSimple.js"></script>
+    <script src="modules/presentContinuous.js"></script>
+    <script src="modules/futureWill.js"></script>
+    <script src="modules/goingTo.js"></script>
+    <script src="modules/futureContinuous.js"></script>
+    <script src="modules/modalVerbs.js"></script>
+    <script src="modules/activeVoice.js"></script>
+    <script src="modules/passiveVoice.js"></script>
+
+    <script src="app.js"></script>
 </body>
 </html>
